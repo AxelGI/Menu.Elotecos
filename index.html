@@ -18,21 +18,43 @@
                     <label for="product1">Selecciona un producto:</label>
                     <select id="product1" class="product-select" name="products[]" required>
                         <option value="" disabled selected>Selecciona un producto</option>
-                        <option value="Tacos" data-price="50">Tacos - $50</option>
-                        <option value="Burritos" data-price="70">Burritos - $70</option>
-                        <option value="Quesadillas" data-price="60">Quesadillas - $60</option>
-                        <option value="Nachos" data-price="40">Nachos - $40</option>
-                        <option value="Elote Loco" data-price="40" data-has-suboptions="true">Elote Loco - $40</option>
+                        <option value="Maruchan Suadero o Pastor" data-price="80">Maruchan Suadero o Pastor - $80</option>
+                        <option value="Papas Locas" data-price="55">Papas Locas - $55</option>
+                        <option value="Nachos Sencillos" data-price="50">Nachos Sencillos - $50</option>
+                        <option value="Nachos con suadero / pastor" data-price="70">Nachos con suadero / pastor - $70</option>
+                        <option value="Nachos con chilli" data-price="75">Nachos con chilli - $75</option>
+                        <option value="Esquite Natural" data-price="25">Esquite Natural (Chico) - $25</option>
+                        <option value="Esquite Clásico" data-price="30">Esquite Clásico (Chico) - $30</option>
+                        <option value="Esquite Loco" data-price="40" data-has-suboptions="true">Esquite Loco (Chico) - $40</option>
+                        <option value="Esquisopa Loca" data-price="75" data-has-suboptions="true">Esquisopa Loca - $75</option>
+                        <!-- Agrega los demás productos aquí -->
                     </select>
 
                     <div class="subOptionsContainer hidden">
-                        <label for="subOptions1">Selecciona la fritura:</label>
-                        <select id="subOptions1" class="sub-options" name="subOptions1[]" multiple>
-                            <option value="Takis">Takis</option>
-                            <option value="Chetos Flaming">Chetos Flaming</option>
-                            <option value="Doritos">Doritos</option>
-                            <option value="Ruffles">Ruffles</option>
-                        </select>
+                        <label for="subOptions1">Selecciona las opciones:</label>
+                        <div class="sub-option-group">
+                            <label>Maruchan:</label>
+                            <select id="subOptionsMaruchan1" class="sub-options-maruchan" name="subOptionsMaruchan1[]">
+                                <option value="Clásica">Clásica</option>
+                                <option value="Limón">Limón</option>
+                            </select>
+                        </div>
+                        <div class="sub-option-group">
+                            <label>Fritura:</label>
+                            <select id="subOptionsFritura1" class="sub-options-fritura" name="subOptionsFritura1[]">
+                                <option value="Takis">Takis</option>
+                                <option value="Chetos Flaming">Chetos Flaming</option>
+                                <option value="Doritos">Doritos</option>
+                                <option value="Ruffles">Ruffles</option>
+                            </select>
+                        </div>
+                        <div class="sub-option-group">
+                            <label>Bolsa de Papas:</label>
+                            <select id="subOptionsPapas1" class="sub-options-papas" name="subOptionsPapas1[]">
+                                <option value="Sabritas">Sabritas</option>
+                                <option value="Ruffles">Ruffles</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
             </div>
