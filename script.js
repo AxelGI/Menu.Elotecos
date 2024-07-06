@@ -28,6 +28,11 @@ document.getElementById('addProduct').addEventListener('click', function() {
                 <select id="subOptionsMaruchan${productCount}" class="sub-options-maruchan" name="subOptionsMaruchan${productCount}[]">
                     <option value="Clásica">Clásica</option>
                     <option value="Limón">Limón</option>
+                    <option value="Camaron">Camaron</option>
+                    <option value="Res">Res</option>
+                    <option value="Pollo">Pollo</option>
+                    <option value="Piquin">Piquin</option>
+                    <option value="Habanero">Habanero</option>
                 </select>
             </div>
             <div class="sub-option-group">
@@ -54,13 +59,9 @@ document.getElementById('addProduct').addEventListener('click', function() {
 
 document.getElementById('productsContainer').addEventListener('change', function(e) {
     if (e.target.classList.contains('product-select')) {
-        const productSelect = e.target;
-        const subOptionsContainer = productSelect.nextElementSibling;
-        const selectedOption = productSelect.selectedOptions[0];
-        const price = Number(selectedOption.getAttribute('data-price'));
+        const subOptionsContainer = e.target.nextElementSibling;
 
-        // Show or hide sub-options based on the selected product
-        if (selectedOption.getAttribute('data-has-suboptions') === 'true') {
+        if (e.target.selectedOptions[0].getAttribute('data-has-suboptions') === 'true') {
             subOptionsContainer.classList.remove('hidden');
         } else {
             subOptionsContainer.classList.add('hidden');
