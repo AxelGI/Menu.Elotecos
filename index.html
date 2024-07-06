@@ -3,37 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ordenar en el Restaurante</title>
+    <title>Menu Elotecos</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Menú de Elotecos</h1>
+        <h1>Menu Elotecos</h1>
         <form id="orderForm">
             <label for="name">Nombre:</label>
             <input type="text" id="name" name="name" required>
 
-            <label for="tableNumber">Número de Mesa:</label>
-            <input type="text" id="tableNumber" name="tableNumber" required>
+            <div id="productsContainer">
+                <div class="product">
+                    <label for="product1">Selecciona un producto:</label>
+                    <select id="product1" class="product-select" name="products[]" required>
+                        <option value="" disabled selected>Selecciona un producto</option>
+                        <option value="Tacos" data-price="50">Tacos - $50</option>
+                        <option value="Burritos" data-price="70">Burritos - $70</option>
+                        <option value="Quesadillas" data-price="60">Quesadillas - $60</option>
+                        <option value="Nachos" data-price="40">Nachos - $40</option>
+                        <option value="Elote Loco" data-price="40" data-has-suboptions="true">Elote Loco - $40</option>
+                    </select>
 
-            <label for="menuItems">Selecciona los artículos del menú:</label>
-            <select id="menuItems" name="menuItems" multiple required>
-                <option value="Tacos" data-price="50">Tacos - $50</option>
-                <option value="Burritos" data-price="70">Burritos - $70</option>
-                <option value="Quesadillas" data-price="60">Quesadillas - $60</option>
-                <option value="Nachos" data-price="40">Nachos - $40</option>
-                <option value="Elote Loco" data-price="40" data-has-suboptions="true">Elote Loco - $40</option>
-            </select>
-
-            <div id="subOptionsContainer" class="hidden">
-                <label for="subOptions">Selecciona la fritura:</label>
-                <select id="subOptions" name="subOptions" multiple>
-                    <option value="Takis">Takis</option>
-                    <option value="Chetos Flaming">Chetos Flaming</option>
-                    <option value="Doritos">Doritos</option>
-                    <option value="Ruffles">Ruffles</option>
-                </select>
+                    <div class="subOptionsContainer hidden">
+                        <label for="subOptions1">Selecciona la fritura:</label>
+                        <select id="subOptions1" class="sub-options" name="subOptions1[]" multiple>
+                            <option value="Takis">Takis</option>
+                            <option value="Chetos Flaming">Chetos Flaming</option>
+                            <option value="Doritos">Doritos</option>
+                            <option value="Ruffles">Ruffles</option>
+                        </select>
+                    </div>
+                </div>
             </div>
+
+            <button type="button" id="addProduct">Agregar otro producto</button>
 
             <p>Total: $<span id="totalPrice">0</span></p>
 
