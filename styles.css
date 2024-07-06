@@ -55,3 +55,7 @@ p {
 .hidden {
     display: none;
 }
+
+.product {
+    margin-bottom: 20px;
+}
