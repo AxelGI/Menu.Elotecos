@@ -1,13 +1,9 @@
-let productCount = 1;
-
 document.getElementById('addProduct').addEventListener('click', function() {
-    productCount++;
-
     const productContainer = document.createElement('div');
-    productContainer.className = 'product';
+    productContainer.classList.add('product');
     productContainer.innerHTML = `
-        <label for="product${productCount}">Selecciona un producto:</label>
-        <select id="product${productCount}" class="product-select" name="products[]" required>
+        <label for="product">Selecciona un producto:</label>
+        <select class="product-select" name="products[]" required>
             <option value="" disabled selected>Selecciona un producto</option>
             <option value="Maruchan Suadero o Pastor" data-price="80">Maruchan Suadero o Pastor - $80</option>
             <option value="Papas Locas" data-price="55">Papas Locas - $55</option>
@@ -22,10 +18,10 @@ document.getElementById('addProduct').addEventListener('click', function() {
         </select>
 
         <div class="subOptionsContainer hidden">
-            <label for="subOptions${productCount}">Selecciona las opciones:</label>
+            <label for="subOptions">Selecciona las opciones:</label>
             <div class="sub-option-group">
                 <label>Maruchan:</label>
-                <select id="subOptionsMaruchan${productCount}" class="sub-options-maruchan" name="subOptionsMaruchan${productCount}[]">
+                <select class="sub-options-maruchan" name="subOptionsMaruchan[]">
                     <option value="Clásica">Clásica</option>
                     <option value="Limón">Limón</option>
                     <option value="Camaron">Camaron</option>
@@ -37,7 +33,7 @@ document.getElementById('addProduct').addEventListener('click', function() {
             </div>
             <div class="sub-option-group">
                 <label>Fritura:</label>
-                <select id="subOptionsFritura${productCount}" class="sub-options-fritura" name="subOptionsFritura${productCount}[]">
+                <select class="sub-options-fritura" name="subOptionsFritura[]">
                     <option value="Takis">Takis</option>
                     <option value="Chetos Flaming">Chetos Flaming</option>
                     <option value="Doritos">Doritos</option>
@@ -46,7 +42,7 @@ document.getElementById('addProduct').addEventListener('click', function() {
             </div>
             <div class="sub-option-group">
                 <label>Bolsa de Papas:</label>
-                <select id="subOptionsPapas${productCount}" class="sub-options-papas" name="subOptionsPapas${productCount}[]">
+                <select class="sub-options-papas" name="subOptionsPapas[]">
                     <option value="Sabritas">Sabritas</option>
                     <option value="Ruffles">Ruffles</option>
                 </select>
@@ -84,30 +80,30 @@ document.getElementById('orderForm').addEventListener('submit', function(e) {
     e.preventDefault();
 
     let name = document.getElementById('name').value;
+    let contact = document.getElementById('contact').value;
     let productsContainer = document.getElementById('productsContainer');
     let totalPrice = document.getElementById('totalPrice').textContent;
+    let orderNumber = Math.floor(10000 + Math.random() * 90000); // Generate a random order number
+    let orderDetails = `Los Chilaquiles De A La Vuelta ${name}\n\nNúmero de pedido: LCDLV-${orderNumber}\n`;
 
-    let message = `Hola, soy ${name}. Me gustaría ordenar: `;
+    const productDivs = productsContainer.querySelectorAll('.product');
+    productDivs.forEach((productDiv, index) => {
+        const productSelect = productDiv.querySelector('.product-select');
+        const productName = productSelect.options[productSelect.selectedIndex].text;
+        orderDetails += `\n- 1 x ${productName}\n`;
 
-    let allProductSelects = productsContainer.querySelectorAll('.product-select');
-    allProductSelects.forEach(select => {
-        let selectedOption = select.selectedOptions[0];
-        let productName = selectedOption.value;
-        let subOptionsMessage = '';
-
-        if (productName === 'Esquisopa Loca') {
-            let maruchanOptions = Array.from(select.nextElementSibling.querySelector('.sub-options-maruchan').selectedOptions).map(option => option.value);
-            let frituraOptions = Array.from(select.nextElementSibling.querySelector('.sub-options-fritura').selectedOptions).map(option => option.value);
-            let papasOptions = Array.from(select.nextElementSibling.querySelector('.sub-options-papas').selectedOptions).map(option => option.value);
-            
-            subOptionsMessage = ` con Maruchan (${maruchanOptions.join(' y ')}), Fritura (${frituraOptions.join(' y ')}), Bolsa de Papas (${papasOptions.join(' y ')})`;
-        }
-
-        message += `${productName}${subOptionsMessage}, `;
+        const subOptionsContainers = productDiv.querySelectorAll('.sub-option-group');
+        subOptionsContainers.forEach(container => {
+            const subSelect = container.querySelector('select');
+            const subOption = subSelect.options[subSelect.selectedIndex].text;
+            orderDetails += `  - 1 x ${subOption}\n`;
+        });
     });
 
-    message += `Total: $${totalPrice}.`;
-    let encodedMessage = encodeURIComponent(message);
+    orderDetails += `\nSubTotal: $${totalPrice}\n`;
+    orderDetails += `Número de contacto: ${contact}\n\n`;
+    orderDetails += `${name}, tu pedido se está preparando con amor.\n\nMuchas Gracias !`;
 
+    let encodedMessage = encodeURIComponent(orderDetails);
     window.open(`https://api.whatsapp.com/send?phone=5215549683833&text=${encodedMessage}`, '_blank');
 });
