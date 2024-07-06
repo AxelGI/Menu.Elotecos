@@ -33,5 +33,5 @@ document.getElementById('orderForm').addEventListener('submit', function(e) {
     message += `Mesa número: ${tableNumber}. Total: $${totalPrice}.`;
     let encodedMessage = encodeURIComponent(message);
 
-    window.open(`https://api.whatsapp.com/send?phone=TU_NUMERO_DE_WHATSAPP&text=${encodedMessage}`, '_blank');
+    window.open(`https://api.whatsapp.com/send?phone=+5215549683833&text=${encodedMessage}`, '_blank');
 });
