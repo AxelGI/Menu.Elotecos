@@ -1,6 +1,6 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #fdbc00;
     margin: 0;
     padding: 0;
     display: flex;
@@ -37,7 +37,7 @@ input, select, button {
 }
 
 button {
-    background-color: #28a745;
+    background-color: #f54b2c;
     color: white;
     border: none;
     cursor: pointer;
