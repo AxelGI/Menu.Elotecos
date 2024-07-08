@@ -8,7 +8,10 @@ body {
     align-items: center;
     height: 100vh;
 }
-
+.imagen-container {
+    text-align: center; /* Alinea la imagen horizontalmente */
+    /* Opcional: puedes añadir más estilos al contenedor si lo necesitas */
+}
 .container {
     background: white;
     padding: 20px;
