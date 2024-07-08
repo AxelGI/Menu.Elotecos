@@ -46,3 +46,33 @@ button {
 button:hover {
     background-color: #218838;
 }
+.hidden {
+    display: none;
+}
+
+.sub-option-group {
+    margin-top: 10px;
+}
+
+.sub-option-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.sub-option-group select {
+    width: 100%;
+}
+
+button.removeProduct {
+    margin-top: 10px;
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+button.removeProduct:hover {
+    background-color: darkred;
+}
+
