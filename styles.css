@@ -8,10 +8,11 @@ body {
     align-items: center;
     height: 100vh;
 }
+
 .imagen-container {
-    text-align: center; /* Alinea la imagen horizontalmente */
-    /* Opcional: puedes añadir más estilos al contenedor si lo necesitas */
+    text-align: center;
 }
+
 .container {
     background: white;
     padding: 20px;
@@ -46,57 +47,33 @@ input, select, button {
 button {
     background-color: #f54b2c;
     color: white;
-    border: none;
     cursor: pointer;
+    border: none;
+    margin-top: 10px;
 }
 
 button:hover {
-    background-color: #218838;
-}
-
-p {
-    margin-top: 15px;
-    font-weight: bold;
+    background-color: #ff3310;
 }
 
 .hidden {
     display: none;
 }
 
-.product {
-    margin-bottom: 20px;
+#addProduct {
+    background-color: #4CAF50;
+    margin-top: 20px;
 }
 
-.sub-option-group {
+#addProduct:hover {
+    background-color: #45a049;
+}
+
+.removeProduct {
+    background-color: #f54b2c;
     margin-top: 10px;
 }
-.hidden {
-    display: none;
-}
 
-.sub-option-group {
-    margin-top: 10px;
+.removeProduct:hover {
+    background-color: #ff3310;
 }
-
-.sub-option-group label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.sub-option-group select {
-    width: 100%;
-}
-
-button.removeProduct {
-    margin-top: 10px;
-    background-color: red;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-button.removeProduct:hover {
-    background-color: darkred;
-}
-
