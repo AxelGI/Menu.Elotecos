@@ -87,7 +87,7 @@ document.getElementById('addProduct').addEventListener('click', function() {
                 <option value="Agua Natural" data-price="15">Agua Natural (600 ml) - $15</option>
             </select>
             <div class="subOptionsContainer hidden"></div>
-            <button type="button" class="removeProduct">Eliminar producto</button>
+            <button type="button" class="removeProduct">Borrar</button>
         </div>
     </div>
     `;
@@ -125,13 +125,13 @@ function handleProductChange(event) {
                 subOptionsContainer.innerHTML += `
                     <div class="sub-option-group">
                         <label>${option.text} - $${option.price}</label>
-                        <input type="radio" name="suboption_${product}" value="${option.value}" data-price="${option.price}">
+                        <input id="size" type="radio" name="suboption_${product}" value="${option.value}" data-price="${option.price}">
                     </div>
                 `;
             });
 
             // Escuchar cambios en las opciones de tamaño
-            const sizeInputs = subOptionsContainer.querySelectorAll('input[type="radio"]');
+            const sizeInputs = subOptionsContainer.querySelectorAll('input[id="size"]');
             sizeInputs.forEach(input => {
                 input.addEventListener('change', function() {
                     // Obtener el precio base del producto seleccionado
@@ -154,7 +154,7 @@ function handleProductChange(event) {
                         <option value="Takis">Takis</option>
                         <option value="Chetos Flaming">Chetos Flaming</option>
                         <option value="Doritos">Doritos</option>
-                        <option value="Fritos">Fritos</option>
+                        <option value="Ruffles">Ruffles</option>
                     </select>
                 </div>
             `;
@@ -168,6 +168,7 @@ function handleProductChange(event) {
                         <option value="Ruffles">Ruffles</option>
                         <option value="Chetos Flamin hot">Chetos Flamin hot</option>
                         <option value="Takis">Takis</option>
+                        <option value="Tostito">Tostito</option>
                     </select>
                 </div>
             `;
@@ -180,8 +181,8 @@ function handleProductChange(event) {
                         <option value="Pollo">Pollo</option>
                         <option value="Res">Res</option>
                         <option value="Camaron">Camarón</option>
-                        <option value="Piquin">Queso</option>
-                        <option value="Habanero">Queso</option>
+                        <option value="Piquin">Piquin</option>
+                        <option value="Habanero">Habanero</option>
                     </select>
                 </div>
             `;
@@ -210,6 +211,17 @@ function handleProductChange(event) {
                         <option value="Mango">Mango</option>
                         <option value="Fresa-kiwi">Fresa-Kiwi</option>
                         <option value="Té verde">Té verde</option>
+                    </select>
+                </div>
+            `;
+        }
+        if (product.toLowerCase().includes('arizona loca')) {
+            subOptionsContainer.innerHTML += `
+                <div class="sub-option-group">
+                    <label>Fruta:</label>
+                    <select class="sub-options-bebida" name="subOptionsArizonaLoca[]">
+                        <option value="Mango">Mango</option>
+                        <option value="Fresa">Fresa</option>
                     </select>
                 </div>
             `;
