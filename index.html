@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Pedidos Elotecos</h1>
+        <h1>Menú Elotecos</h1>
         <form id="orderForm">
             <label for="name">Nombre:</label>
             <input type="text" id="name" name="name" required>
@@ -29,22 +29,14 @@
                         <!-- Esquites -->
                         <option value="Doriesquite" data-price="50">Doriesquite - $50</option>
                         <option value="Tostiesquite" data-price="50">Tostiesquite - $50</option>
-                        <option value="Esquite Natural Chico" data-price="25">Esquite Natural (Chico) - $25</option>
-                        <option value="Esquite Natural Grande" data-price="45">Esquite Natural (Grande) - $45</option>
-                        <option value="Esquite Clásico Chico" data-price="30">Esquite Clásico (Chico) - $30</option>
-                        <option value="Esquite Clásico Grande" data-price="50">Esquite Clásico (Grande) - $50</option>
-                        <option value="Esquite Loco Chico" data-price="40" data-has-suboptions="true">Esquite Loco (Chico) - $40</option>
-                        <option value="Esquite Loco Grande" data-price="60" data-has-suboptions="true">Esquite Loco (Grande) - $60</option>
-                        <option value="Papa esquite Chico" data-price="55" data-has-suboptions="true">Papa esquite (Chico) - $55</option>
-                        <option value="Papa esquite Grande" data-price="70" data-has-suboptions="true">Papa esquite (Grande) - $70</option>
-                        <option value="Papa esquite Volcano Chico" data-price="65" data-has-suboptions="true">Papa esquite Volcano (Chico) - $65</option>
-                        <option value="Papa esquite Volcano Grande" data-price="80" data-has-suboptions="true">Papa esquite Volcano (Grande) - $80</option>
-                        <option value="Esquite Suadero Chico" data-price="55" data-has-suboptions="true">Esquite Suadero (Chico) - $55</option>
-                        <option value="Esquite Suadero Grande" data-price="75" data-has-suboptions="true">Esquite Suadero (Grande) - $75</option>
-                        <option value="Esquite Pastor Chico" data-price="55" data-has-suboptions="true">Esquite Pastor (Chico) - $55</option>
-                        <option value="Esquite Pastor Grande" data-price="75" data-has-suboptions="true">Esquite Pastor (Grande) - $75</option>
-                        <option value="Esquites Cambray Chico" data-price="50">Esquites Cambray (Chico) - $50</option>
-                        <option value="Esquites Cambray Grande" data-price="70">Esquites Cambray (Grande) - $70</option>
+                        <option value="Esquite Natural" data-has-suboptions="true" data-price="0">Esquite Natural</option>
+                        <option value="Esquite Clásico" data-has-suboptions="true" data-price="0">Esquite Clásico</option>
+                        <option value="Esquite Loco" data-has-suboptions="true" data-price="0">Esquite Loco</option>
+                        <option value="Papa esquite" data-has-suboptions="true" data-price="0">Papa esquite</option>
+                        <option value="Papa esquite Volcano" data-has-suboptions="true" data-price="0">Papa esquite Volcano</option>
+                        <option value="Esquite Suadero" data-has-suboptions="true" data-price="0">Esquite Suadero</option>
+                        <option value="Esquite Pastor" data-has-suboptions="true" data-price="0">Esquite Pastor</option>
+                        <option value="Esquites Cambray" data-has-suboptions="true" data-price="0">Esquites Cambray</option>
                         <!-- Maruchan con Esquite -->
                         <option value="Maruchan Clásica" data-price="55" data-has-suboptions="true">Maruchan Clásica - $55</option>
                         <option value="Maruchan esquite y fritura" data-price="60" data-has-suboptions="true">Maruchan esquite y fritura - $60</option>
@@ -60,7 +52,7 @@
                         <!-- Drinks -->
                         <option value="Vaso Preparado" data-price="45" data-has-suboptions="true">Vaso Preparado - $45</option>
                         <option value="Pati Bañera" data-price="80" data-has-suboptions="true">Pati Bañera - $80</option>
-                        <option value="Arizona Loco" data-price="70" data-has-suboptions="true">Arizona Loco - $70</option>
+                        <option value="Arizona Loca" data-price="70" data-has-suboptions="true">Arizona Loca - $70</option>
                         <option value="Clamateco" data-price="50">Clamateco - $50</option>
                         <option value="Coca cola" data-price="25">Coca cola (600 ml) - $25</option>
                         <option value="Arizona" data-price="25" data-has-suboptions="true">Arizona (680 ml) - $25</option>
@@ -68,11 +60,11 @@
                         <option value="Agua Natural" data-price="15">Agua Natural (600 ml) - $15</option>
                     </select>
                     <div class="subOptionsContainer hidden"></div>
-                    <button type="button" class="removeProduct">Eliminar producto</button>
+                    <button type="button" class="removeProduct">Borrar</button>
                 </div>
             </div>
             <button type="button" id="addProduct">Agregar otro producto</button>
-            <p>Total: $<span id="totalPrice">0</span></p>
+            <p><span id="totalPrice">0</span></p>
             <button type="submit">Enviar Orden</button>
         </form>
     </div>
