@@ -215,7 +215,7 @@ function handleProductChange(event) {
                 </div>
             `;
         }
-        if (product.toLowerCase().includes('arizona loca')) {
+        if (product.toLowerCase()==='arizona loca') {
             subOptionsContainer.innerHTML += `
                 <div class="sub-option-group">
                     <label>Fruta:</label>
