@@ -189,7 +189,7 @@ function handleProductChange(event) {
         }
 
          if (product.toLowerCase().includes('vaso') || product.toLowerCase().includes('bañera')) {
-            subOptionsContainer.innerHTML += 
+            subOptionsContainer.innerHTML += `
                 <div class="sub-option-group">
                     <label>Bebida:</label>
                     <select class="sub-options-bebida" name="subOptionsBebida[]">
@@ -201,7 +201,7 @@ function handleProductChange(event) {
                         <option value="Agua Mineral">Agua Mineral</option>
                     </select>
                 </div>
-            ;
+            `;
         }
 
         if (product.toLowerCase() === 'boing') {
