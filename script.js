@@ -188,6 +188,22 @@ function handleProductChange(event) {
             `;
         }
 
+         if (product.toLowerCase().includes('vaso') || product.toLowerCase().includes('bañera')) {
+            subOptionsContainer.innerHTML += 
+                <div class="sub-option-group">
+                    <label>Bebida:</label>
+                    <select class="sub-options-bebida" name="subOptionsBebida[]">
+                        <option value="Ameyal">Ameyal</option>
+                        <option value="Sangría">Sangría</option>
+                        <option value="Squirt">Squirt</option>
+                        <option value="Sangría">Azulito</option>
+                        <option value="Sangría">Moradito</option>
+                        <option value="Agua Mineral">Agua Mineral</option>
+                    </select>
+                </div>
+            ;
+        }
+
         if (product.toLowerCase() === 'boing') {
             subOptionsContainer.innerHTML += `
                 <div class="sub-option-group">
