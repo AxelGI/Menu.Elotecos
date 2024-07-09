@@ -208,7 +208,7 @@ function handleProductChange(event) {
             subOptionsContainer.innerHTML += `
                 <div class="sub-option-group">
                     <label>Sabor de Bebida:</label>
-                    <select class="sub-options-bebida" name="subOptionsBebida[]">
+                    <select class="sub-options-bebida" name="subOptionsBoing[]">
                         <option value="Uva">Uva</option>
                         <option value="Mango">Mango</option>
                         <option value="Fresa">Fresa</option>
