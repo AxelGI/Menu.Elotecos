@@ -3,71 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pedidos Elotecos</title>
+    <title>Los Elotecos</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="shortcut icon" href="Logo_Elotecos.PNG" type="image/x-icon">
 </head>
 <body>
-    <div class="container">
-        <h1>Menú Elotecos</h1>
-        <form id="orderForm">
-            <label for="name">Nombre:</label>
-            <input type="text" id="name" name="name" required>
-            <div id="productsContainer">
-                <div class="product">
-                    <label for="product1">Selecciona un producto:</label>
-                    <select id="product1" class="product-select" name="products[]" required>
-                        <option value="" disabled selected>Selecciona un producto</option>
-                        <!-- Elotes -->
-                        <option value="Elote Natural" data-price="25">Elote Natural - $25</option>
-                        <option value="Elote Clásico" data-price="30">Elote Clásico - $30</option>
-                        <option value="Elote Loco" data-price="40" data-has-suboptions="true">Elote Loco - $40</option>
-                        <option value="Elote Volcano" data-price="50" data-has-suboptions="true">Elote Volcano - $50</option>
-                        <option value="Papalote" data-price="55" data-has-suboptions="true">Papalote - $55</option>
-                        <option value="Charola Eloteco Clásico" data-price="75" data-has-suboptions="true">Charola Eloteco Clásico - $75</option>
-                        <option value="Charola Eloteco Loco" data-price="80" data-has-suboptions="true">Charola Eloteco Loco - $80</option>
-                        <!-- Esquites -->
-                        <option value="Doriesquite" data-price="50">Doriesquite - $50</option>
-                        <option value="Tostiesquite" data-price="50">Tostiesquite - $50</option>
-                        <option value="Esquite Natural" data-has-suboptions="true" data-price="0">Esquite Natural</option>
-                        <option value="Esquite Clásico" data-has-suboptions="true" data-price="0">Esquite Clásico</option>
-                        <option value="Esquite Loco" data-has-suboptions="true" data-price="0">Esquite Loco</option>
-                        <option value="Papa esquite" data-has-suboptions="true" data-price="0">Papa esquite</option>
-                        <option value="Papa esquite Volcano" data-has-suboptions="true" data-price="0">Papa esquite Volcano</option>
-                        <option value="Esquite Suadero" data-has-suboptions="true" data-price="0">Esquite Suadero</option>
-                        <option value="Esquite Pastor" data-has-suboptions="true" data-price="0">Esquite Pastor</option>
-                        <option value="Esquites Cambray" data-has-suboptions="true" data-price="0">Esquites Cambray</option>
-                        <!-- Maruchan con Esquite -->
-                        <option value="Maruchan Clásica" data-price="55" data-has-suboptions="true">Maruchan Clásica - $55</option>
-                        <option value="Maruchan esquite y fritura" data-price="60" data-has-suboptions="true">Maruchan esquite y fritura - $60</option>
-                        <option value="Esquisopa loca" data-price="75" data-has-suboptions="true">Esquisopa loca - $75</option>
-                        <option value="Maruchan Suadero" data-price="80" data-has-suboptions="true">Maruchan Suadero - $80</option>
-                        <option value="Maruchan Pastor" data-price="80" data-has-suboptions="true">Maruchan Pastor - $80</option>
-                        <!-- Snacks -->
-                        <option value="Papas Locas" data-price="55" data-has-suboptions="true">Papas Locas - $55</option>
-                        <option value="Nachos Sencillos" data-price="50">Nachos Sencillos - $50</option>
-                        <option value="Nachos con suadero" data-price="70" data-has-suboptions="true">Nachos con suadero - $70</option>
-                        <option value="Nachos con pastor" data-price="70" data-has-suboptions="true">Nachos con pastor - $70</option>
-                        <option value="Nachos con chilli" data-price="75">Nachos con chilli - $75</option>
-                        <!-- Drinks -->
-                        <option value="Vaso Preparado" data-price="45" data-has-suboptions="true">Vaso Preparado - $45</option>
-                        <option value="Pati Bañera" data-price="80" data-has-suboptions="true">Pati Bañera - $80</option>
-                        <option value="Arizona Loca" data-price="70" data-has-suboptions="true">Arizona Loca - $70</option>
-                        <option value="Clamateco" data-price="50">Clamateco - $50</option>
-                        <option value="Coca cola" data-price="25">Coca cola (600 ml) - $25</option>
-                        <option value="Arizona" data-price="25" data-has-suboptions="true">Arizona (680 ml) - $25</option>
-                        <option value="Boing" data-price="20" data-has-suboptions="true">Boing (500 ml) - $20</option>
-                        <option value="Agua Natural" data-price="15">Agua Natural (600 ml) - $15</option>
-                    </select>
-                    <div class="subOptionsContainer hidden"></div>
-                    <button type="button" class="removeProduct">Borrar</button>
-                </div>
-            </div>
-            <button type="button" id="addProduct">Agregar otro producto</button>
-            <p><span id="totalPrice">0</span></p>
-            <button type="submit">Enviar Orden</button>
-        </form>
+    <div class="header">
+        <div class="header-logo_container">
+            <img class="header-logo" alt="Logo" src="https://example.com/logo.jpg">
+        </div>
+        <span class="header-title">Los Elotecos</span>
+        <div class="status_label">
+            <div class="status_label-status"></div>
+            <span class="status_label-label">Abierto</span>
+        </div>
     </div>
-    <script src="script.js"></script>
+    <div class="tab_bar">
+        <button class="tab_bar-item" current-section="true"><span>Elotes</span></button>
+        <button class="tab_bar-item" current-section="false"><span>Esquites</span></button>
+        <button class="tab_bar-item" current-section="false"><span>Maruchan con Esquite</span></button>
+        <button class="tab_bar-item" current-section="false"><span>Snacks</span></button>
+        <button class="tab_bar-item" current-section="false"><span>Drinks</span></button>
+        <!-- Agrega más categorías según tus necesidades -->
+    </div>
+    <div class="home_page">
+        <div class="home_page-search">
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39M11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7"></path></svg>
+            <input placeholder="Buscar" maxlength="40">
+        </div>
+        <div id="elotes" class="category-section">
+            <h2>Elotes</h2>
+        </div>
+        <div id="esquites" class="category-section">
+            <h2>Esquites</h2>
+        </div>
+        <div id="maruchan-esquite" class="category-section">
+            <h2>Maruchan con Esquite</h2>
+        </div>
+        <div id="snacks" class="category-section">
+            <h2>Snacks</h2>
+        </div>
+        <div id="drinks" class="category-section">
+            <h2>Drinks</h2>
+        </div>
+        <!-- Agrega más secciones para otras categorías -->
+    </div>
+    <script src="scripts.js"></script>
+    <script src="principal.js"></script>
 </body>
 </html>
