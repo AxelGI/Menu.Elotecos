@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalle del Producto</title>
-    <link rel="stylesheet" href="products.css">
-    <script defer src="scripts.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="principal.js"></script> <!-- Ensure principal.js is loaded first -->
     <script defer src="product.js"></script>
 </head>
 <body>
@@ -21,6 +21,12 @@
             </div>
             <button class="add-to-cart">Añadir 1 por $0.00</button>
         </div>
+    </div>
+
+    <!-- Burbuja del carrito flotante -->
+    <div class="cart-icon-container" onclick="window.location.href='cart.html';">
+        <div class="cart-icon"></div>
+        <div class="cart-total" id="cart-total">$0.00</div>
     </div>
 </body>
 </html>

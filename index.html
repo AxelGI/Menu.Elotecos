@@ -3,51 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Los Elotecos</title>
+    <title>Ordenes Elotecos</title>
     <link rel="stylesheet" href="styles.css">
+    <script defer src="principal.js"></script>
 </head>
 <body>
-    <div class="header">
-        <div class="header-logo_container">
-            <img class="header-logo" alt="Logo" src="https://example.com/logo.jpg">
-        </div>
-        <span class="header-title">Los Elotecos</span>
-        <div class="status_label">
-            <div class="status_label-status"></div>
-            <span class="status_label-label">Abierto</span>
-        </div>
-    </div>
-    <div class="tab_bar">
-        <button class="tab_bar-item" current-section="true"><span>Elotes</span></button>
-        <button class="tab_bar-item" current-section="false"><span>Esquites</span></button>
-        <button class="tab_bar-item" current-section="false"><span>Maruchan con Esquite</span></button>
-        <button class="tab_bar-item" current-section="false"><span>Snacks</span></button>
-        <button class="tab_bar-item" current-section="false"><span>Drinks</span></button>
-        <!-- Agrega más categorías según tus necesidades -->
-    </div>
-    <div class="home_page">
-        <div class="home_page-search">
-            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M21.71 20.29L18 16.61A9 9 0 1 0 16.61 18l3.68 3.68a1 1 0 0 0 1.42 0a1 1 0 0 0 0-1.39M11 18a7 7 0 1 1 7-7a7 7 0 0 1-7 7"></path></svg>
-            <input placeholder="Buscar" maxlength="40">
-        </div>
-        <div id="elotes" class="category-section">
-            <h2>Elotes</h2>
-        </div>
-        <div id="esquites" class="category-section">
-            <h2>Esquites</h2>
-        </div>
-        <div id="maruchan-esquite" class="category-section">
-            <h2>Maruchan con Esquite</h2>
-        </div>
-        <div id="snacks" class="category-section">
-            <h2>Snacks</h2>
-        </div>
-        <div id="drinks" class="category-section">
-            <h2>Drinks</h2>
-        </div>
-        <!-- Agrega más secciones para otras categorías -->
-    </div>
-    <script src="scripts.js"></script>
-    <script src="principal.js"></script>
+    <header>
+        <h1>Ordenes Elotecos</h1>
+    </header>
+    <nav class="horizontal-scroll">
+        <button id="btn-todo">Todo</button>
+        <button id="btn-elotes">Elotes</button>
+        <button id="btn-esquites">Esquites</button>
+        <button id="btn-maruchan">Maruchan</button>
+        <button id="btn-snacks">Snacks</button>
+        <button id="btn-drinks">Drinks</button>
+        <button id="btn-refrescos">Refrescos</button>
+    </nav>
+    <main>
+        <div id="product-container" class="product-container"></div>
+    </main>
+    <footer>
+        <p>© 2024 Elotecos</p>
+    </footer>
+
+    <!-- Botón flotante del carrito -->
+    <button id="cart-button" onclick="window.location.href='cart.html'">
+        🛒
+        <div id="cart-total">0.00</div>
+    </button>
 </body>
 </html>
