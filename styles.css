@@ -117,3 +117,30 @@ footer {
     width: 100%;
     bottom: 0;
 }
+
+/* Estilo para el botón flotante del carrito */
+#cart-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: var(--color-primary);
+    color: black;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000; /* Asegura que esté encima de otros elementos */
+    display: flex;
+    align-items: center;
+}
+
+#cart-total {
+    background-color: var(--color-secundary);
+    color: white;
+    padding: 2px 5px;
+    border-radius: 12px;
+    margin-left: 8px;
+    font-size: 14px;
+}

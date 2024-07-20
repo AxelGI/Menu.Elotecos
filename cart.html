@@ -3,17 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito de Compras</title>
-    <link rel="stylesheet" href="cart.css">
-    <script defer src="cart.js"></script>
+    <title>Carrito</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="cart-container">
-        <h1>Carrito de Compras</h1>
-        <div id="cart-items">
-            <!-- Los elementos del carrito se mostrarán aquí -->
-        </div>
-        <button id="checkout-button">Enviar Orden a WhatsApp</button>
-    </div>
+    <div id="cart"></div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartContainer = document.getElementById('cart');
+
+            if (cart.length === 0) {
+                cartContainer.innerHTML = '<p>El carrito está vacío</p>';
+            } else {
+                cart.forEach(item => {
+                    const itemElement = document.createElement('div');
+                    itemElement.innerHTML = `
+                        <h2>${item.title}</h2>
+                        <img src="${item.image}" alt="${item.title}" class="product-image">
+                        <p>Precio: $${item.price.toFixed(2)}</p>
+                        <div class="options">
+                            <h3>Opciones Seleccionadas:</h3>
+                            ${Object.keys(item.options).map(group => `
+                                <div class="option-group">
+                                    <h4>${group}</h4>
+                                    <p>${item.options[group].join(', ')}</p>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                    cartContainer.appendChild(itemElement);
+                });
+            }
+        });
+    </script>
 </body>
 </html>

@@ -80,3 +80,35 @@ body {
     border-radius: 5px;
     cursor: pointer;
 }
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    .product-detail {
+        padding: 10px;
+    }
+
+    .product-info {
+        padding: 15px;
+    }
+
+    .product-info h1 {
+        font-size: 1.5rem;
+    }
+
+    .product-info p {
+        font-size: 0.9rem;
+    }
+
+    .options h2 {
+        font-size: 1.3rem;
+    }
+
+    .option-group h3 {
+        font-size: 1rem;
+    }
+
+    .add-to-cart {
+        padding: 10px;
+        font-size: 0.9rem;
+    }
+}
