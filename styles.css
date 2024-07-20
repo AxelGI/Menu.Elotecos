@@ -1,129 +1,119 @@
+:root {     
+       --color-primary: #fde428;
+       --color-primaryd: #fde428b2;
+       --color-secundary: #e42000;
+
+    }
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    background-color: orange;
 }
 
 header {
-    background-color: #fdbc00;
+    background-color: var(--color-primary);
     color: black;
-    padding: 10px 0;
+    padding: 1rem;
     text-align: center;
 }
 
 nav.horizontal-scroll {
+    display: flex;
     overflow-x: auto;
-    white-space: nowrap;
-    background-color: #f8f8f8;
-    padding: 10px 0;
-    border-bottom: 1px solid #ddd;
+    background-color: var(--color-primary);
+    padding: 0.5rem 0;
 }
 
 nav.horizontal-scroll button {
-    display: inline-block;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    padding: 10px 20px;
-    margin: 0 5px;
+    flex: 1;
+    padding: 0.5rem 1rem;
+    background-color: var(--color-secundary);
+    color: white;
+    border: none;
     cursor: pointer;
+    white-space: nowrap;
 }
 
 nav.horizontal-scroll button:hover {
-    background-color: #eee;
+    background-color: var(--color-secundary);
 }
 
 main {
-    padding: 20px;
+    padding: 1rem;
 }
-
-footer {
-    background-color: #fdbc00;
-    color: black;
-    text-align: center;
-    padding: 10px 0;
-    position: fixed;
-    width: 100%;
-    bottom: 0;
-}
-
-/* Estilos para el botón flotante del carrito */
-#cart-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #f55434;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    font-size: 24px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
+/* Product container styles */
 .product-container {
-    padding-bottom: 60px; /* Ajusta el valor según sea necesario */
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 10px;
 }
 
-#cart-button:hover {
-    background-color: #ff4500;
+.product {
+    background-color: var(--color-primary);
+    border-radius: 10px;
+    box-shadow: 0 2px 5px --color-primaryd;
+    padding: 10px;
+    transition: transform 0.2s;
+    cursor: pointer;
 }
 
-/* Estilo para el total dentro del botón */
-#cart-total {
-    font-size: 12px;
-    color: white;
-    margin-top: 5px;
+.product img {
+    width: 100%;
+    border-radius: 10px;
 }
 
-.option-group {
-    margin-bottom: 15px;
+.product h2 {
+    font-size: 18px;
+    margin: 10px 0;
 }
 
-.option-label {
+.product p {
+    font-size: 14px;
+    color: #555;
+}
+
+.product:hover {
+    transform: scale(1.02);
+}
+
+.product-options, .product-sizes {
+    margin-top: 10px;
+}
+
+.product-options label, .product-sizes label {
     display: block;
     margin-bottom: 5px;
 }
 
-.cart-icon-container {
+.product-options select, .product-sizes select {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Responsive styles */
+@media (min-width: 600px) {
+    .product-container {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (min-width: 900px) {
+    .product-container {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: var(--color-primary);
+    color: black;
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #f55434;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    cursor: pointer;
-}
-
-.cart-icon {
-    width: 30px;
-    height: 30px;
-    background: url('path-to-cart-icon.png') no-repeat center center;
-    background-size: contain;
-}
-
-.cart-total {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background-color: red;
-    color: white;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 12px;
+    width: 100%;
+    bottom: 0;
 }
