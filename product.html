@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalle del Producto</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="product.js"></script>
+</head>
+<body>
+    <div class="product-detail">
+        <button class="back-button" onclick="window.history.back();">←</button>
+        <img id="product-image" class="product-image" src="" alt="Producto">
+        <div class="product-info">
+            <h1 id="product-title"></h1>
+            <p id="product-description"></p>
+            <p id="product-id">Eliddd</p> <!-- Elemento para mostrar el ID del producto -->
+            <div class="options">
+                <h2>Opciones</h2>
+                <!-- Opciones del producto se agregarán dinámicamente aquí -->
+            </div>
+            <button class="add-to-cart">Añadir 1 por $0.00</button>
+        </div>
+    </div>
+
+    <!-- Burbuja del carrito flotante -->
+    <div class="cart-icon-container" onclick="window.location.href='cart.html';">
+        <div class="cart-icon"></div>
+        <div class="cart-total" id="cart-total">$0.00</div>
+    </div>
+</body>
+</html>
