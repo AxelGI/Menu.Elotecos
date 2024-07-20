@@ -1,114 +1,65 @@
-import {
-    frituraOptions,
-    papitasOptions,
-    papaslocasOptions,
-    maruchanOptions,
-    carneOptions,
-    extrasOptions,
-    saborPreparadas,
-    saborArizonaLoco,
-    saborArizona,
-    saborBoings,
-    products
-} from './data.js';
+import { products } from './data.js';
 
-let cart = [];
+document.addEventListener('DOMContentLoaded', () => {
+    const productId = parseInt(new URLSearchParams(window.location.search).get('id'), 10);
 
-// Función para obtener el parámetro 'id' de la URL
-function getProductIdFromURL() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get('id');
-    print (params.get('id'));
-}
+    let product = null;
 
-// Función para renderizar los detalles del producto
-function renderProductDetails(productId) {
-    // Obtener todos los productos de todas las categorías
-    const allProducts = Object.values(products.todos).flat();
-
-    // Buscar el producto por ID
-    const product = allProducts.find(prod => prod.id === productId);
-
-    const productDetailsDiv = document.getElementById('product-details');
-    const productOptionsDiv = document.getElementById('product-options');
+    for (const category in products.todos) {
+        product = products.todos[category].find(p => p.id === productId);
+        if (product) break;
+    }
 
     if (product) {
-        let priceInfo = '';
-        if (product.sizes && product.sizes.length > 0) {
-            priceInfo = product.sizes.map(size => `$${size.price.toFixed(2)}`).join(', ');
-        } else {
-            priceInfo = `$${(product.price || 0).toFixed(2)}`;
-        }
+        const productDetails = document.getElementById('product-details');
 
-        productDetailsDiv.innerHTML = `
-            <img src="${product.image}" alt="${product.title}">
-            <h2>${product.title} - ${priceInfo}</h2>
+        const productImage = document.createElement('img');
+        productImage.src = product.image;
+        productImage.alt = product.title;
+        productImage.classList.add('product-image');
+
+        const productInfo = document.createElement('div');
+        productInfo.classList.add('product-info');
+        productInfo.innerHTML = `
+            <h1>${product.title}</h1>
             <p>${product.description}</p>
         `;
 
-        // Renderizar las opciones y tamaños si existen
-        if (product.sizes && product.sizes.length > 0) {
-            const sizesLabel = document.createElement('label');
-            sizesLabel.textContent = 'Tamaños:';
-            productOptionsDiv.appendChild(sizesLabel);
-            
-            const sizesSelect = document.createElement('select');
-            product.sizes.forEach(size => {
-                const option = document.createElement('option');
-                option.value = size.size;
-                option.textContent = `${size.size} - $${size.price.toFixed(2)}`;
-                sizesSelect.appendChild(option);
-            });
-            productOptionsDiv.appendChild(sizesSelect);
-        }
+        const optionsContainer = document.createElement('div');
+        optionsContainer.classList.add('options');
+        optionsContainer.innerHTML = `<h2>Opciones</h2>`;
 
-        if (product.options && product.options.length > 0) {
-            product.options.forEach(option => {
+        product.options.forEach(optionGroup => {
+            const optionGroupElement = document.createElement('div');
+            optionGroupElement.classList.add('option-group');
+            const optionGroupTitle = document.createElement('h3');
+            optionGroupTitle.textContent = optionGroup.name;
+            optionGroupElement.appendChild(optionGroupTitle);
+
+            optionGroup.options.forEach(option => {
                 const optionLabel = document.createElement('label');
-                optionLabel.textContent = option.name;
-                const optionSelect = document.createElement('select');
-                option.options.forEach(opt => {
-                    const optOption = document.createElement('option');
-                    optOption.value = opt.name;
-                    optOption.textContent = `${opt.name}${opt.price ? ` - $${opt.price.toFixed(2)}` : ''}`;
-                    optionSelect.appendChild(optOption);
-                });
-                productOptionsDiv.appendChild(optionLabel);
-                productOptionsDiv.appendChild(optionSelect);
+                optionLabel.innerHTML = `
+                    <input type="${optionGroup.name === 'Extras' ? 'checkbox' : 'radio'}" name="${optionGroup.name}" value="${option.name}">
+                    ${option.name}
+                `;
+                optionGroupElement.appendChild(optionLabel);
             });
-        }
 
-        // Botón para agregar al carrito
-        const addToCartButton = document.createElement('button');
-        addToCartButton.textContent = 'Agregar al carrito';
-        addToCartButton.addEventListener('click', () => {
-            let finalPrice = product.price || 0;
-
-            if (product.sizes && product.sizes.length > 0) {
-                finalPrice = parseFloat(sizesSelect.selectedOptions[0].dataset.price);
-            }
-
-            if (product.options && product.options.length > 0) {
-                product.options.forEach(option => {
-                    const selectedOption = optionSelect.selectedOptions[0];
-                    if (selectedOption.dataset.price) {
-                        finalPrice += parseFloat(selectedOption.dataset.price);
-                    }
-                });
-            }
-
-            cart.push({
-                ...product,
-                price: finalPrice
-            });
-            alert(`${product.title} agregado al carrito con un precio de $${finalPrice.toFixed(2)}`);
+            optionsContainer.appendChild(optionGroupElement);
         });
-        productOptionsDiv.appendChild(addToCartButton);
-    } else {
-        productDetailsDiv.textContent = 'Producto no encontrado.';
-    }
-}
 
-// Obtener el ID del producto de la URL y renderizar sus detalles
-const productId = getProductIdFromURL();
-renderProductDetails(productId);
+        const addToCartButton = document.createElement('button');
+        addToCartButton.classList.add('add-to-cart');
+        addToCartButton.textContent = `Añadir 1 por $${product.price.toFixed(2)}`;
+        addToCartButton.onclick = () => {
+            // Funcionalidad para añadir al carrito
+        };
+
+        productDetails.appendChild(productImage);
+        productDetails.appendChild(productInfo);
+        productDetails.appendChild(optionsContainer);
+        productDetails.appendChild(addToCartButton);
+    } else {
+        console.error('Product not found');
+    }
+});
