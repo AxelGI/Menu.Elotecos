@@ -35,32 +35,8 @@ function renderProduct(product) {
     `;
 
     productDiv.addEventListener('click', () => {
-        let finalPrice = product.price || 0;
-
-        // Obtener el precio del tamaño seleccionado si existe
-        if (product.sizes && product.sizes.length > 0) {
-            const selectedSize = prompt(`Selecciona un tamaño:\n${product.sizes.map((size, index) => `${index + 1}. ${size.size} - $${size.price.toFixed(2)}`).join('\n')}`);
-            if (selectedSize && product.sizes[selectedSize - 1]) {
-                finalPrice = product.sizes[selectedSize - 1].price;
-            }
-        }
-
-        // Sumar el precio de las opciones seleccionadas
-        if (product.options && product.options.length > 0) {
-            product.options.forEach(option => {
-                const selectedOption = prompt(`Selecciona una opción para ${option.name}:\n${option.options.map((opt, index) => `${index + 1}. ${opt.name}${opt.price ? ` - $${opt.price.toFixed(2)}` : ''}`).join('\n')}`);
-                if (selectedOption && option.options[selectedOption - 1] && option.options[selectedOption - 1].price) {
-                    finalPrice += option.options[selectedOption - 1].price;
-                }
-            });
-        }
-
-        // Añadir el producto al carrito
-        cart.push({
-            ...product,
-            price: finalPrice
-        });
-        alert(`${product.title} agregado al carrito con un precio de $${finalPrice.toFixed(2)}`);
+        // Redirigir a product.html con el ID del producto en la URL
+        window.location.href = `product.html?id=${product.id}`;
     });
 
     container.appendChild(productDiv);

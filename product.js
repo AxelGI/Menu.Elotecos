@@ -1,116 +1,114 @@
 import {
+    frituraOptions,
+    papitasOptions,
+    papaslocasOptions,
+    maruchanOptions,
+    carneOptions,
+    extrasOptions,
+    saborPreparadas,
+    saborArizonaLoco,
+    saborArizona,
+    saborBoings,
     products
 } from './data.js';
 
-document.addEventListener("DOMContentLoaded", () => {
-    // Obtener el parámetro 'id' de la URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const productId = urlParams.get('id');
+let cart = [];
 
-    // Mostrar el ID en el HTML
-    document.getElementById("product-id").textContent = `ID: ${productId}`;
+// Función para obtener el parámetro 'id' de la URL
+function getProductIdFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('id');
+    print (params.get('id'));
+}
 
-    // Buscar el producto con el ID obtenido
-    const product = findProductById(productId);
+// Función para renderizar los detalles del producto
+function renderProductDetails(productId) {
+    // Obtener todos los productos de todas las categorías
+    const allProducts = Object.values(products.todos).flat();
+
+    // Buscar el producto por ID
+    const product = allProducts.find(prod => prod.id === productId);
+
+    const productDetailsDiv = document.getElementById('product-details');
+    const productOptionsDiv = document.getElementById('product-options');
+
     if (product) {
-        // Actualizar la información del producto en la página
-        document.getElementById("product-title").textContent = product.title;
-        document.getElementById("product-description").textContent = product.description;
-        document.getElementById("product-image").src = product.image;
+        let priceInfo = '';
+        if (product.sizes && product.sizes.length > 0) {
+            priceInfo = product.sizes.map(size => `$${size.price.toFixed(2)}`).join(', ');
+        } else {
+            priceInfo = `$${(product.price || 0).toFixed(2)}`;
+        }
 
-        // Agregar opciones del producto
-        const optionsContainer = document.querySelector(".options");
-        if (product.options) {
+        productDetailsDiv.innerHTML = `
+            <img src="${product.image}" alt="${product.title}">
+            <h2>${product.title} - ${priceInfo}</h2>
+            <p>${product.description}</p>
+        `;
+
+        // Renderizar las opciones y tamaños si existen
+        if (product.sizes && product.sizes.length > 0) {
+            const sizesLabel = document.createElement('label');
+            sizesLabel.textContent = 'Tamaños:';
+            productOptionsDiv.appendChild(sizesLabel);
+            
+            const sizesSelect = document.createElement('select');
+            product.sizes.forEach(size => {
+                const option = document.createElement('option');
+                option.value = size.size;
+                option.textContent = `${size.size} - $${size.price.toFixed(2)}`;
+                sizesSelect.appendChild(option);
+            });
+            productOptionsDiv.appendChild(sizesSelect);
+        }
+
+        if (product.options && product.options.length > 0) {
             product.options.forEach(option => {
-                const optionGroup = document.createElement("div");
-                optionGroup.classList.add("option-group");
-
-                const optionTitle = document.createElement("h3");
-                optionTitle.textContent = option.name;
-                optionGroup.appendChild(optionTitle);
-
+                const optionLabel = document.createElement('label');
+                optionLabel.textContent = option.name;
+                const optionSelect = document.createElement('select');
                 option.options.forEach(opt => {
-                    const optionLabel = document.createElement("label");
-                    optionLabel.classList.add("option-label");
-
-                    const optionInput = document.createElement("input");
-                    optionInput.type = option.name === "Bolsa de Papitas" || option.name === "Sabor" ? "radio" : "checkbox";
-                    optionInput.name = option.name;
-                    optionInput.value = opt.name;
-
-                    optionLabel.appendChild(optionInput);
-                    optionLabel.appendChild(document.createTextNode(`${opt.name} (+$${opt.price ? opt.price.toFixed(2) : 0.00})`));
-                    optionGroup.appendChild(optionLabel);
+                    const optOption = document.createElement('option');
+                    optOption.value = opt.name;
+                    optOption.textContent = `${opt.name}${opt.price ? ` - $${opt.price.toFixed(2)}` : ''}`;
+                    optionSelect.appendChild(optOption);
                 });
-
-                optionsContainer.appendChild(optionGroup);
+                productOptionsDiv.appendChild(optionLabel);
+                productOptionsDiv.appendChild(optionSelect);
             });
         }
 
-        // Configurar el botón "Añadir al carrito"
-        updateAddToCartButton(product);
+        // Botón para agregar al carrito
+        const addToCartButton = document.createElement('button');
+        addToCartButton.textContent = 'Agregar al carrito';
+        addToCartButton.addEventListener('click', () => {
+            let finalPrice = product.price || 0;
 
-        // Agregar evento al botón "Añadir al carrito"
-        document.querySelector(".add-to-cart").addEventListener("click", () => {
-            const selectedOptions = Array.from(document.querySelectorAll(".option-group input:checked"))
-                .map(input => ({
-                    group: input.name,
-                    value: input.value,
-                    price: product.options.find(o => o.name === input.name).options.find(o => o.name === input.value).price || 0
-                }));
-
-            const finalPrice = calculateFinalPrice(product.price, selectedOptions);
-            addToCart(product, selectedOptions, finalPrice);
-        });
-    } else {
-        // Mostrar mensaje si no se encuentra el producto
-        document.querySelector(".product-info").innerHTML = "<p>Producto no encontrado.</p>";
-    }
-});
-
-// Función para encontrar el producto por ID
-const findProductById = (id) => {
-    for (let category in products) {
-        for (let product of products[category]) {
-            if (product.id == id) {
-                return product;
+            if (product.sizes && product.sizes.length > 0) {
+                finalPrice = parseFloat(sizesSelect.selectedOptions[0].dataset.price);
             }
-        }
+
+            if (product.options && product.options.length > 0) {
+                product.options.forEach(option => {
+                    const selectedOption = optionSelect.selectedOptions[0];
+                    if (selectedOption.dataset.price) {
+                        finalPrice += parseFloat(selectedOption.dataset.price);
+                    }
+                });
+            }
+
+            cart.push({
+                ...product,
+                price: finalPrice
+            });
+            alert(`${product.title} agregado al carrito con un precio de $${finalPrice.toFixed(2)}`);
+        });
+        productOptionsDiv.appendChild(addToCartButton);
+    } else {
+        productDetailsDiv.textContent = 'Producto no encontrado.';
     }
-    return null;
-};
+}
 
-// Función para calcular el precio final
-const calculateFinalPrice = (basePrice, options) => {
-    let finalPrice = basePrice;
-    options.forEach(option => {
-        finalPrice += option.price;
-    });
-    return finalPrice;
-};
-
-// Función para actualizar el botón "Añadir al carrito"
-const updateAddToCartButton = (product) => {
-    const addToCartButton = document.querySelector(".add-to-cart");
-    addToCartButton.textContent = `Añadir 1 por $${product.price.toFixed(2)}`;
-};
-
-// Función para agregar el producto al carrito
-const addToCart = (product, options, finalPrice) => {
-    const cartItem = {
-        ...product,
-        options: options,
-        price: finalPrice
-    };
-    // Suponiendo que 'cart' es una variable global o en almacenamiento local
-    cart.push(cartItem);
-    alert(`Producto añadido al carrito con un precio de $${finalPrice.toFixed(2)}`);
-    updateCartTotal();
-};
-
-// Función para actualizar el total del carrito
-const updateCartTotal = () => {
-    // Suponiendo que 'cart' es una variable global o en almacenamiento local
-    const total = cart.reduce((sum, item) => sum + item.price, 0);
-    document.getElementById("cart-total").textContent = `$${total.toFixed(2)}`;
-};
+// Obtener el ID del producto de la URL y renderizar sus detalles
+const productId = getProductIdFromURL();
+renderProductDetails(productId);
