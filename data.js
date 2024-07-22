@@ -78,7 +78,7 @@ export const products = {
             title: "Elote Natural",
             description: "Elote tradicional preparado con sal y limón.",
             price: 25.00,
-            image: "img/elote-natural.png",
+            image: "img/elote-natural.PNG",
             options: [
                 { name: "Extras", options: extrasOptions},
             ]
@@ -88,7 +88,7 @@ export const products = {
             title: "Elote Clásico",
             description: "Elote tradicional preparado con mantequilla, mayonesa y queso rallado.",
             price: 30.00,
-            image: "img/elote-natural.png",
+            image: "img/elote-natural.PNG",
             options: [
                 { name: "Extras", options: extrasOptions},
             ]
@@ -98,7 +98,7 @@ export const products = {
             title: "Elote Loco",
             description: "Elote preparado con mantequilla, mayonesa y cobertura de fritura a elegir: doritos nacho, takis fuego, ruffles queso o cheetos flamin' hot",
             price: 40.00,
-            image: "img/elote-loco.png",
+            image: "img/elote-loco.PNG",
             options: [
                 { name: "Cubierta fritura", options: frituraOptions },
                 { name: "Extras", options: extrasOptions},
@@ -109,7 +109,7 @@ export const products = {
             title: "Elote Volcano",
             description: "Elote Loco bañado en queso amarillo líquido calientito.",
             price: 50.00,
-            image: "img/elote-volcano.png",
+            image: "img/elote-volcano.PNG",
             options: [
                 { name: "Cubierta fritura", options: frituraOptions },
                 { name: "Extras", options: extrasOptions},
@@ -120,7 +120,7 @@ export const products = {
             title: "Papalote",
             description: "Elote Loco acompañado de una camita de papas Sabritas a elegir.",
             price: 55.00,
-            image: "img/papalote.png",
+            image: "img/papalote.PNG",
             options: [
                 { name: "Cubierta fritura", options: frituraOptions },
                 { name: "Bolsa papitas", options: papitasOptions },
