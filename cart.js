@@ -1,38 +1,76 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+function updateCartDisplay() {
     const cartItemsContainer = document.getElementById('cart-items');
+    const cartTotalElement = document.getElementById('cart-total');
 
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let cartTotal = 0;
+
+    cartItemsContainer.innerHTML = '';
+
+    cart.forEach((item, index) => {
+        const optionsText = Object.entries(item.options).map(([key, values]) => {
+            if (!Array.isArray(values)) {
+                values = [values];
+            }
+            return `${key}: ${values.join(', ')}`;
+        }).join(' | ');
+
+        const itemElement = document.createElement('div');  // Definimos itemElement aquí
+        itemElement.innerHTML = `
+            <div>
+                <strong>${item.title}</strong><br>
+                ${optionsText}<br>
+                Precio: $${item.price.toFixed(2)} x ${item.quantity}
+            </div>
+            <button class="remove-item" data-index="${index}">Eliminar</button>
+        `;
+        
+        cartTotal += item.price * item.quantity;
+
+        cartItemsContainer.appendChild(itemElement);
+    });
+
+    cartTotalElement.textContent = `Total: $${cartTotal.toFixed(2)}`;
+
+    document.querySelectorAll('.remove-item').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const index = event.target.dataset.index;
+            removeCartItem(index);
+        });
+    });
+}
+
+function removeCartItem(index) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartDisplay();
+    updateCartButton();
+}
+
+function sendWhatsAppOrder() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
     if (cart.length === 0) {
-        cartItemsContainer.innerHTML = '<p>El carrito está vacío</p>';
+        alert("El carrito está vacío.");
         return;
     }
 
+    let orderMessage = "Orden:\n";
     cart.forEach(item => {
-        const itemDiv = document.createElement('div');
-        itemDiv.classList.add('cart-item');
-        itemDiv.innerHTML = `
-            <h2>${item.name}</h2>
-            <p>Precio: $${item.price}</p>
-            ${item.option ? `<p>Opción: ${item.option.name} $${item.option.price}</p>` : ''}
-            ${item.extras.map(extra => `<p>Extra: ${extra.name} $${extra.price}</p>`).join('')}
-        `;
-        cartItemsContainer.appendChild(itemDiv);
-    });
-
-    document.getElementById('checkout-button').addEventListener('click', function() {
-        let message = 'Pedido:\n';
-        cart.forEach(item => {
-            message += `${item.name} $${item.price}\n`;
-            if (item.option) {
-                message += `  Opción: ${item.option.name} $${item.option.price}\n`;
+        const optionsText = Object.entries(item.options).map(([key, values]) => {
+            if (!Array.isArray(values)) {
+                values = [values];
             }
-            item.extras.forEach(extra => {
-                message += `  Extra: ${extra.name} $${extra.price}\n`;
-            });
-        });
+            return `${key}: ${values.join(', ')}`;
+        }).join(' | ');
 
-        const encodedMessage = encodeURIComponent(message);
-        const whatsappUrl = `https://api.whatsapp.com/send?phone=+5215549683833&text=${encodedMessage}`;
-        window.open(whatsappUrl, '_blank');
+        orderMessage += `${item.title}\n${optionsText}\nPrecio: $${item.price.toFixed(2)} x ${item.quantity}\n\n`;
     });
-});
+
+    orderMessage += `Total: $${cart.reduce((total, item) => total + (item.price * item.quantity), 0).toFixed(2)}`;
+
+    const encodedMessage = encodeURIComponent(orderMessage);
+    window.open(`https://api.whatsapp.com/send?phone=5215549683833&text=${encodedMessage}`, '_blank');
+}
+
+document.addEventListener("DOMContentLoaded", updateCartDisplay);

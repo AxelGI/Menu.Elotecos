@@ -35,10 +35,13 @@ export const carneOptions = [
     { name: "Mixto" },
 ];
 
+export const verduraOptions = [
+    { name: "Cebolla" },
+    { name: "Cilantro" },
+];
+
 export const extrasOptions = [
     { name: "Volcano", price: 10.00 },
-    { name: "Cebolla" },
-    { name: "Cilantro" }
 ];
 
 export const saborPreparadas = [
@@ -75,7 +78,7 @@ export const products = {
             title: "Elote Natural",
             description: "Elote tradicional preparado con sal y limón.",
             price: 25.00,
-            image: "https://example.com/elote-natural.jpg",
+            image: "img/elote-natural.png",
             options: [
                 { name: "Extras", options: extrasOptions},
             ]
@@ -85,7 +88,7 @@ export const products = {
             title: "Elote Clásico",
             description: "Elote tradicional preparado con mantequilla, mayonesa y queso rallado.",
             price: 30.00,
-            image: "https://example.com/elote-clasico.jpg",
+            image: "img/elote-natural.png",
             options: [
                 { name: "Extras", options: extrasOptions},
             ]
@@ -95,7 +98,7 @@ export const products = {
             title: "Elote Loco",
             description: "Elote preparado con mantequilla, mayonesa y cobertura de fritura a elegir: doritos nacho, takis fuego, ruffles queso o cheetos flamin' hot",
             price: 40.00,
-            image: "https://example.com/elote-loco.jpg",
+            image: "img/elote-loco.png",
             options: [
                 { name: "Cubierta fritura", options: frituraOptions },
                 { name: "Extras", options: extrasOptions},
@@ -106,7 +109,7 @@ export const products = {
             title: "Elote Volcano",
             description: "Elote Loco bañado en queso amarillo líquido calientito.",
             price: 50.00,
-            image: "https://example.com/elote-volcano.jpg",
+            image: "img/elote-volcano.png",
             options: [
                 { name: "Cubierta fritura", options: frituraOptions },
                 { name: "Extras", options: extrasOptions},
@@ -117,7 +120,7 @@ export const products = {
             title: "Papalote",
             description: "Elote Loco acompañado de una camita de papas Sabritas a elegir.",
             price: 55.00,
-            image: "https://example.com/papalote.jpg",
+            image: "img/papalote.png",
             options: [
                 { name: "Cubierta fritura", options: frituraOptions },
                 { name: "Bolsa papitas", options: papitasOptions },
@@ -129,7 +132,7 @@ export const products = {
             title: "Charola Eloteco Clásico",
             description: "Charola con un elote y esquite clásicos acompañados de papas Sabritas a elegir.",
             price: 75.00,
-            image: "https://example.com/charola-clasico.jpg",
+            image: "img/charola-eloteco.PNG",
             options: [
                 { name: "Bolsa papitas", options: papitasOptions },
                 { name: "Extras", options: extrasOptions},
@@ -140,7 +143,7 @@ export const products = {
             title: "Charola Eloteco Loco",
             description: "Charola con un elote y esquite loco acompañados de papas Sabritas a elegir.",
             price: 80.00,
-            image: "https://example.com/charola-loco.jpg",
+            image: "img/charola-eloteco.PNG",
             options: [
                 { name: "Cubierta fritura", options: frituraOptions },
                 { name: "Bolsa papitas", options: papitasOptions },
@@ -250,6 +253,7 @@ export const products = {
             image: "https://example.com/esquite-suadero-pastor.jpg",
             options: [
                 { name: "Carne", options: carneOptions},
+                { name: "Verdura", options: verduraOptions},
                 { name: "Extras", options: extrasOptions},
             ]
         },
@@ -263,6 +267,7 @@ export const products = {
             ],
             image: "https://example.com/esquites-cambray.jpg",
             options: [
+                { name: "Verdura", options: verduraOptions},
                 { name: "Extras", options: extrasOptions},
             ]
         }
@@ -313,6 +318,7 @@ export const products = {
             options: [
                 { name: "Sabor", options: maruchanOptions },
                 { name: "Carne", options: carneOptions},
+                { name: "Verdura", options: verduraOptions},
                 { name: "Extras", options: extrasOptions},
             ]
         }
@@ -344,6 +350,7 @@ export const products = {
             image: "https://example.com/nachos-suadero-pastor.jpg",
             options: [
                 { name: "Carne", options: carneOptions},
+                { name: "Verdura", options: verduraOptions},
                 { name: "Extras", options: extrasOptions},
             ]
         },

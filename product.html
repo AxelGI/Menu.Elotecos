@@ -1,20 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Details</title>
+    <title>Detalles del Producto</title>
     <link rel="stylesheet" href="products.css">
+    <script type="module" src="product.js" defer></script>
 </head>
 <body>
-    <div class="container">
-        <div class="header">Product Details</div>
-        <div id="product-details" class="product-detail">
-            <!-- This will be dynamically populated by JavaScript -->
+    <div class="product-detail">
+        <button class="back-button" onclick="window.history.back()">←</button>
+        <img class="product-image" src="" alt="Imagen del Producto">
+        <div class="product-info">
+            <h1></h1>
+            <p></p>
+            <div class="price"></div>
+            <div class="options"></div>
+            <button class="add-to-cart">Añadir al Carrito</button>
         </div>
-        <div class="footer">Footer Content</div>
     </div>
-
-    <script type="module" src="product.js"></script>
+    <!-- Botón flotante del carrito -->
+    <button id="cart-button" onclick="window.location.href='cart.html'">
+        🛒
+        <div id="cart-total">0.00</div>
+    </button>
 </body>
 </html>

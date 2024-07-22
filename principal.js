@@ -12,7 +12,7 @@ import {
     products
 } from './data.js';
 
-let cart = [];
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 const container = document.getElementById('product-container');
 
 // Función para renderizar un producto con opciones y tamaños
@@ -66,6 +66,14 @@ function renderAllProducts() {
     });
 }
 
+// Función para actualizar el botón del carrito flotante
+function updateCartButton() {
+    const cartTotalElement = document.getElementById('cart-total');
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    cartTotalElement.textContent = `$${cartTotal.toFixed(2)}`;
+}
+
 // Event listeners para los botones de categorías
 document.getElementById('btn-todo').addEventListener('click', renderAllProducts);
 document.getElementById('btn-elotes').addEventListener('click', () => renderProducts('elotes'));
@@ -76,3 +84,6 @@ document.getElementById('btn-drinks').addEventListener('click', () => renderProd
 
 // Inicializar con la categoría "Todos" al cargar la página
 renderAllProducts();
+
+// Actualizar el botón del carrito flotante al cargar la página
+updateCartButton();

@@ -1,121 +1,139 @@
 import { products } from './data.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-    const params = new URLSearchParams(window.location.search);
-    const productId = parseInt(params.get('id'));
-    
-    // Encuentra el producto basado en el ID
-    let foundProduct = null;
+// Función para obtener el producto por ID
+function getProductById(productId) {
     for (const category in products.todos) {
         const product = products.todos[category].find(p => p.id === productId);
-        if (product) {
-            foundProduct = product;
-            break;
-        }
+        if (product) return product;
+    }
+    return null;
+}
+
+// Función para crear los elementos de las opciones
+function createOptionElement(option, groupName) {
+    const container = document.createElement('div');
+    container.classList.add('option-container');
+
+    if (option.name === 'Extras' || option.name === 'Cubierta fritura' || option.name === 'Verdura') {
+        option.options.forEach(opt => {
+            const label = document.createElement('label');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.name = groupName;
+            checkbox.value = opt.name;
+            label.appendChild(checkbox);
+            label.appendChild(document.createTextNode(opt.name));
+            container.appendChild(label);
+        });
+    } else {
+        const select = document.createElement('select');
+        select.name = groupName;
+        option.options.forEach(opt => {
+            const optionElement = document.createElement('option');
+            optionElement.value = opt.name;
+            optionElement.textContent = opt.name;
+            select.appendChild(optionElement);
+        });
+        container.appendChild(select);
     }
 
-    if (!foundProduct) {
-        console.error('Product not found');
-        return;
+    return container;
+}
+
+function addToCart(product, size, options) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const existingItemIndex = cart.findIndex(item => item.id === product.id && item.size === size && JSON.stringify(item.options) === JSON.stringify(options));
+    
+    if (existingItemIndex !== -1) {
+        cart[existingItemIndex].quantity += 1;
+    } else {
+        cart.push({
+            id: product.id,
+            title: product.title,
+            price: size ? size.price : product.price,
+            size: size ? size.name : null,
+            options: options,
+            quantity: 1
+        });
     }
 
-    const productDetailContainer = document.querySelector('.product-detail');
-    const { title, description, price, image, options, sizes } = foundProduct;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartButton();
+}
 
-    // Mostrar información del producto
-    const productImage = document.createElement('img');
-    productImage.src = image;
-    productImage.alt = title;
-    productImage.classList.add('product-image');
+document.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const productId = parseInt(params.get('id'), 10);
+    const product = getProductById(productId);
 
-    const productTitle = document.createElement('h1');
-    productTitle.textContent = title;
+    if (!product) return;
 
-    const productDescription = document.createElement('p');
-    productDescription.textContent = description;
+    const productTitle = document.querySelector('.product-info h1');
+    const productDescription = document.querySelector('.product-info p');
+    const productPrice = document.querySelector('.product-info .price');
+    const productImage = document.querySelector('.product-image');
+    const optionsContainer = document.querySelector('.options');
 
-    const productInfo = document.createElement('div');
-    productInfo.classList.add('product-info');
-    productInfo.appendChild(productTitle);
-    productInfo.appendChild(productDescription);
+    productTitle.textContent = product.title;
+    productDescription.textContent = product.description;
+    productPrice.textContent = product.price ? `$${product.price.toFixed(2)}` : 'Precio no disponible';
+    productImage.src = product.image;
 
-    productDetailContainer.appendChild(productImage);
-    productDetailContainer.appendChild(productInfo);
+    let selectedSize = null;
+    if (product.sizes && product.sizes.length > 0) {
+        const sizeSelect = document.createElement('select');
+        sizeSelect.name = 'size';
+        product.sizes.forEach(size => {
+            const sizeOption = document.createElement('option');
+            sizeOption.value = size.name;
+            sizeOption.textContent = `${size.name} - $${size.price.toFixed(2)}`;
+            sizeSelect.appendChild(sizeOption);
+        });
+        optionsContainer.appendChild(sizeSelect);
 
-    if (sizes) {
-        const sizesContainer = document.createElement('div');
-        sizesContainer.classList.add('sizes');
+        selectedSize = product.sizes[0];
 
-        const sizesTitle = document.createElement('h2');
-        sizesTitle.textContent = 'Tamaños';
-        sizesContainer.appendChild(sizesTitle);
+        // Actualiza el precio al cambiar el tamaño
+        sizeSelect.addEventListener('change', (event) => {
+            selectedSize = product.sizes.find(size => size.name === event.target.value);
+            productPrice.textContent = selectedSize ? `$${selectedSize.price.toFixed(2)}` : 'Precio no disponible';
+        });
+    }
 
-        sizes.forEach(size => {
-            const sizeLabel = document.createElement('label');
-            const sizeInput = document.createElement('input');
+    const options = {};
+    product.options.forEach(option => {
+        const groupName = option.name.replace(/\s+/g, '-').toLowerCase();
+        const optionGroup = document.createElement('div');
+        optionGroup.classList.add('option-group');
+        const optionGroupTitle = document.createElement('h3');
+        optionGroupTitle.textContent = option.name;
+        optionGroup.appendChild(optionGroupTitle);
 
-            sizeInput.type = 'radio';
-            sizeInput.name = 'size';
-            sizeInput.value = size.price;
-            sizeLabel.appendChild(sizeInput);
-            sizeLabel.append(` ${size.name} - $${size.price.toFixed(2)}`);
+        const optionElement = createOptionElement(option, groupName);
+        optionGroup.appendChild(optionElement);
 
-            sizesContainer.appendChild(sizeLabel);
+        optionsContainer.appendChild(optionGroup);
 
-            // Actualizar el precio del botón según el tamaño seleccionado
-            sizeInput.addEventListener('change', () => {
-                addToCartButton.textContent = `Añadir 1 por $${parseFloat(sizeInput.value).toFixed(2)}`;
+        options[groupName] = [];
+        optionElement.querySelectorAll('input, select').forEach(input => {
+            input.addEventListener('change', () => {
+                if (input.type === 'checkbox') {
+                    if (input.checked) {
+                        options[groupName].push(input.value);
+                    } else {
+                        const index = options[groupName].indexOf(input.value);
+                        if (index !== -1) {
+                            options[groupName].splice(index, 1);
+                        }
+                    }
+                } else {
+                    options[groupName] = input.value;
+                }
             });
         });
-
-        productDetailContainer.appendChild(sizesContainer);
-    }
-
-    // Mostrar opciones del producto
-    if (options) {
-        const optionsContainer = document.createElement('div');
-        optionsContainer.classList.add('options');
-        
-        options.forEach(optionGroup => {
-            const optionGroupDiv = document.createElement('div');
-            optionGroupDiv.classList.add('option-group');
-
-            const optionGroupTitle = document.createElement('h3');
-            optionGroupTitle.textContent = optionGroup.name;
-            optionGroupDiv.appendChild(optionGroupTitle);
-
-            optionGroup.options.forEach(option => {
-                const optionLabel = document.createElement('label');
-                const optionInput = document.createElement('input');
-                
-                optionInput.type = optionGroup.name === 'Extras' ? 'checkbox' : 'radio';
-                optionInput.name = optionGroup.name;
-                optionInput.value = option.name;  // Mostrar el nombre del objeto en lugar de [object Object]
-                optionLabel.appendChild(optionInput);
-                optionLabel.append(option.name);  // Mostrar el nombre del objeto en lugar de [object Object]
-
-                optionGroupDiv.appendChild(optionLabel);
-            });
-
-            optionsContainer.appendChild(optionGroupDiv);
-        });
-
-        productDetailContainer.appendChild(optionsContainer);
-    }
-
-
-    // Botón para agregar al carrito
-    const addToCartButton = document.createElement('button');
-    addToCartButton.classList.add('add-to-cart');
-    addToCartButton.textContent = `Añadir 1 por $${price.toFixed(2)}`;
-
-    addToCartButton.addEventListener('click', () => {
-        // Aquí iría la lógica para agregar el producto al carrito
-        console.log('Producto añadido al carrito');
-        
-        // Redirigir a index.html
-        window.location.href = 'index.html';
     });
 
-    productDetailContainer.appendChild(addToCartButton);
+    document.querySelector('.add-to-cart').addEventListener('click', () => {
+        addToCart(product, selectedSize, options);
+    });
 });
