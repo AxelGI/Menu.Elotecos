@@ -15,7 +15,8 @@ function updateCartDisplay() {
             return `${key}: ${values.join(', ')}`;
         }).join(' | ');
 
-        const itemElement = document.createElement('div');  // Definimos itemElement aquí
+        const itemElement = document.createElement('div');
+        itemElement.classList.add('cart-item');
         itemElement.innerHTML = `
             <div>
                 <strong>${item.title}</strong><br>

@@ -61,6 +61,13 @@ function addToCart(product, size, options) {
     updateCartButton();
 }
 
+function updateCartButton() {
+    const cartTotalElement = document.getElementById('cart-total');
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+    cartTotalElement.textContent = `$${cartTotal.toFixed(2)}`;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const params = new URLSearchParams(window.location.search);
     const productId = parseInt(params.get('id'), 10);
@@ -136,4 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.querySelector('.add-to-cart').addEventListener('click', () => {
         addToCart(product, selectedSize, options);
     });
+
+    // Actualizar el botón del carrito flotante al cargar la página
+    updateCartButton();
 });
