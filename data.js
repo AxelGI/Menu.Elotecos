@@ -42,6 +42,8 @@ export const verduraOptions = [
 
 export const extrasOptions = [
     { name: "Volcano", price: 10.00 },
+    { name: "Cobertura de fritura", price: 10.00 },
+    { name: "Porción de carne", price: 25.00 },
 ];
 
 export const saborPreparadas = [
@@ -157,7 +159,7 @@ export const products = {
             title: "Doriesquite",
             description: "Doritos a elegir preparados con esquite, limón, sal, mayonesa y queso rallado.",
             price: 50.00,
-            image: "https://example.com/doriesquite.jpg",
+            image: "img/dori-esquite.PNG",
             options: [
                 { name: "Extras", options: extrasOptions},
             ]
@@ -167,7 +169,7 @@ export const products = {
             title: "Tostiesquite",
             description: "Tostitos a elegir preparados con esquite, limón, sal, mayonesa y queso rallado.",
             price: 50.00,
-            image: "https://example.com/tostiesquite.jpg",
+            image: "img/tosti-esquite.PNG",
             options: [
                 { name: "Extras", options: extrasOptions},
             ]
@@ -180,7 +182,7 @@ export const products = {
                 { size: "Chico", price: 25.00 },
                 { size: "Grande", price: 45.00 }
             ],
-            image: "https://example.com/esquite-natural.jpg",
+            image: "img/esquite-clasico.PNG",
             options: [
                 { name: "Extras", options: extrasOptions},
             ]
@@ -193,7 +195,7 @@ export const products = {
                 { size: "Chico", price: 30.00 },
                 { size: "Grande", price: 50.00 }
             ],
-            image: "https://example.com/esquite-clasico.jpg",
+            image: "img/esquite-clasico.PNG",
             options: [
                 { name: "Extras", options: extrasOptions},
             ]
@@ -206,7 +208,7 @@ export const products = {
                 { size: "Chico", price: 40.00 },
                 { size: "Grande", price: 60.00 }
             ],
-            image: "https://example.com/esquite-loco.jpg",
+            image: "img/esquite-loco.PNG",
             options: [
                 { name: "Cubierta fritura", options: frituraOptions },
                 { name: "Extras", options: extrasOptions},
@@ -220,7 +222,7 @@ export const products = {
                 { size: "Chico", price: 55.00 },
                 { size: "Grande", price: 70.00 }
             ],
-            image: "https://example.com/papa-esquite.jpg",
+            image: "img/papa-esquite.PNG",
             options: [
                 { name: "Cubierta fritura", options: frituraOptions },
                 { name: "Bolsa papitas", options: papitasOptions },
@@ -235,7 +237,7 @@ export const products = {
                 { size: "Chico", price: 65.00 },
                 { size: "Grande", price: 80.00 }
             ],
-            image: "https://example.com/papa-esquite-volcano.jpg",
+            image: "img/papa-esquite-volcano.PNG",
             options: [
                 { name: "Cubierta fritura", options: frituraOptions },
                 { name: "Bolsa papitas", options: papitasOptions },
@@ -250,7 +252,7 @@ export const products = {
                 { size: "Chico", price: 55.00 },
                 { size: "Grande", price: 75.00 }
             ],
-            image: "https://example.com/esquite-suadero-pastor.jpg",
+            image: "img/esquite-pastor-suadero.PNG",
             options: [
                 { name: "Carne", options: carneOptions},
                 { name: "Verdura", options: verduraOptions},
@@ -265,7 +267,7 @@ export const products = {
                 { size: "Chico", price: 50.00 },
                 { size: "Grande", price: 70.00 }
             ],
-            image: "https://example.com/esquites-cambray.jpg",
+            image: "img/esquite-cambray.PNG",
             options: [
                 { name: "Verdura", options: verduraOptions},
                 { name: "Extras", options: extrasOptions},
@@ -278,7 +280,7 @@ export const products = {
             title: "Maruchan Clásica",
             description: "Maruchan preparada con esquite, limón, sal, mayonesa y queso rallado.",
             price: 55.00,
-            image: "https://example.com/maruchan-clasica.jpg",
+            image: "img/maruchan-clasica.PNG",
             options: [
                 { name: "Sabor", options: maruchanOptions },
                 { name: "Extras", options: extrasOptions},
@@ -289,7 +291,7 @@ export const products = {
             title: "Maruchan esquite y fritura",
             description: "Maruchan-esquite con cobertura de fritura a elegir: Cheeto Flamin, Doritos, Takis o Ruffles.",
             price: 60.00,
-            image: "https://example.com/maruchan-esquite-fritura.jpg",
+            image: "img/maruchan-clasica.PNG",
             options: [
                 { name: "Cubierta fritura", options: frituraOptions },
                 { name: "Sabor", options: maruchanOptions },
@@ -301,7 +303,7 @@ export const products = {
             title: "Esquisopa loca",
             description: "Maruchan-esquite, fritura y una bolsa de papas Sabritas a elegir.",
             price: 75.00,
-            image: "https://example.com/esquisopa-loca.jpg",
+            image: "img/esquisopa-loca.PNG",
             options: [
                 { name: "Cubierta fritura", options: frituraOptions },
                 { name: "Bolsa papitas", options: papitasOptions },
@@ -314,7 +316,7 @@ export const products = {
             title: "Maruchan Suadero o Pastor",
             description: "Maruchan-esquite con una porción de suadero, pastor o mixto y verdura encima.",
             price: 80.00,
-            image: "https://example.com/maruchan-suadero-pastor.jpg",
+            image: "img/maruchan-suadero-pastor.PNG",
             options: [
                 { name: "Sabor", options: maruchanOptions },
                 { name: "Carne", options: carneOptions},
@@ -329,7 +331,7 @@ export const products = {
             title: "Papas Locas",
             description: "Papas de hojuela estilo C&A (100 gramos), sabor a escoger: naturales, adobadas, queso o chipotle; preparadas con limón, sal, salsa maggi, salsa inglesa y queso amarillo derretido calientito, agrega gomitas y cacahuates sin costo.",
             price: 55.00,
-            image: "https://example.com/papas-locas.jpg",
+            image: "img/papas-locas.PNG",
             options: [
                 { name: "Papa", options: papaslocasOptions},
             ]
@@ -339,7 +341,7 @@ export const products = {
             title: "Nachos sencillos",
             description: "Charola de nachos acompañado de chiles jalapeño y queso derretido líquido calientito.",
             price: 50.00,
-            image: "https://example.com/nachos-sencillos.jpg",
+            image: "img/nachos-sencillos.PNG",
             options: []
         },
         {
@@ -347,7 +349,7 @@ export const products = {
             title: "Nachos con suadero o pastor",
             description: "Charola de nachos acompañado de chiles jalapeño, queso líquido derretido calientito y una porción de carne al pastor, suadero o mixto encima.",
             price: 70.00,
-            image: "https://example.com/nachos-suadero-pastor.jpg",
+            image: "img/nachos-carne.PNG",
             options: [
                 { name: "Carne", options: carneOptions},
                 { name: "Verdura", options: verduraOptions},
@@ -359,7 +361,7 @@ export const products = {
             title: "Nachos con chilli",
             description: "Charola de nachos acompañado de chiles jalapeño, queso líquido derretido calientito y una porción de chilli beans encima.",
             price: 75.00,
-            image: "https://example.com/nachos-chilli.jpg",
+            image: "img/nachos-carne.PNG",
             options: []
         }
     ],
@@ -367,7 +369,7 @@ export const products = {
         {
             id: 25,
             title: "Vaso Preparado",
-            description: "500ml.",
+            description: "Vaso escarchado con polvo picoso 500ml.",
             price: 45.00,
             image: "https://example.com/vaso-preparado.jpg",
             options: [
@@ -379,7 +381,7 @@ export const products = {
             title: "Pati Bañera",
             description: "Incluye la tina, pato y la bebida preparada. 500ml.",
             price: 80.00,
-            image: "https://example.com/pati-banera.jpg",
+            image: "img/pati-banera.PNG",
             options: [
                 { name: "Sabor", options: saborPreparadas},
             ]
@@ -389,7 +391,7 @@ export const products = {
             title: "Pati Bebida",
             description: "Incluye la tina, pato y la bebida preparada. 500ml.",
             price: 80.00,
-            image: "https://example.com/pati-banera.jpg",
+            image: "img/pati-banera.PNG",
             options: [
                 { name: "Sabor", options: saborPreparadas},
             ]
@@ -397,9 +399,9 @@ export const products = {
         {
             id: 28,
             title: "Arizona Loco",
-            description: "680ml.",
+            description: "Escarchado de chamoy con miguelito, mango o fresa, cacahuates, gomitas y dulces de tamarindo. 680ml.",
             price: 70.00,
-            image: "https://example.com/arizona-loco.jpg",
+            image: "img/arizona-loco.PNG",
             options: [
                 { name: "Sabor", options: saborArizonaLoco},
                 { name: "Sabor", options: saborArizona},
@@ -408,9 +410,9 @@ export const products = {
         {
             id: 29,
             title: "Clamateco",
-            description: "500ml. Escarchado de chamoy, clamato preparado con limón, sal, salsa maggi, salsa inglesa y banderilla de tamarindo.",
+            description: "Escarchado de chamoy, clamato preparado con limón, sal, salsa maggi, salsa inglesa y banderilla de tamarindo. 500ml. ",
             price: 50.00,
-            image: "https://example.com/clamateco.jpg",
+            image: "img/clamateco.PNG",
             options: []
         },
         {
@@ -424,7 +426,7 @@ export const products = {
         {
             id: 32,
             title: "Arizona",
-            description: "680ml. Sabores: Mango, Kiwi-Fresa, Sandía, Té Verde.",
+            description: "Mango, Kiwi-Fresa, Sandía, Té Verde. 680ml.",
             price: 25.00,
             image: "https://example.com/arizona.jpg",
             options: [
@@ -434,7 +436,7 @@ export const products = {
         {
             id: 33,
             title: "Boing",
-            description: "500ml. Sabores: Mango, Fresa, Manzana, Uva.",
+            description: "Mango, Fresa, Manzana, Uva. 500ml.",
             price: 20.00,
             image: "https://example.com/boing.jpg",
             options: [

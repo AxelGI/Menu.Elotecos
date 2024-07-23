@@ -9,7 +9,7 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: #ffff;
+    background-color: var(--color-secundary);
 }
 
 header {
@@ -33,7 +33,7 @@ nav.horizontal-scroll {
 nav.horizontal-scroll button {
     flex: 1;
     padding: 0.5rem 1rem;
-    background-color: var(--color-secundary);
+    background-color: black;
     color: white;
     border: none;
     cursor: pointer;
@@ -125,7 +125,7 @@ footer {
 /* Estilo para el botón flotante del carrito */
 #cart-button {
     position: fixed;
-    bottom: 20px;
+    bottom: 65px;
     right: 20px;
     background-color: var(--color-secundary);
     color: black;
