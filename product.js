@@ -142,6 +142,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.querySelector('.add-to-cart').addEventListener('click', () => {
         addToCart(product, selectedSize, options);
+        window.location.href = 'index.html';
     });
 
     // Actualizar el botón del carrito flotante al cargar la página

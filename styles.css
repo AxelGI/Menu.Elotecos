@@ -9,21 +9,25 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: orange;
+    background-color: #ffff;
 }
 
 header {
     background-color: var(--color-primary);
     color: black;
-    padding: 1rem;
+    padding: 0;
     text-align: center;
+}
+
+header h1, h3{
+    margin: 0;
 }
 
 nav.horizontal-scroll {
     display: flex;
     overflow-x: auto;
     background-color: var(--color-primary);
-    padding: 0.5rem 0;
+    padding: 0;
 }
 
 nav.horizontal-scroll button {
@@ -66,12 +70,12 @@ main {
 }
 
 .product h2 {
-    font-size: 18px;
+    font-size: 25px;
     margin: 10px 0;
 }
 
 .product p {
-    font-size: 14px;
+    font-size: 23px;
     color: #555;
 }
 
@@ -110,7 +114,7 @@ main {
 
 footer {
     text-align: center;
-    padding: 10px;
+    padding: 0px;
     background-color: var(--color-primary);
     color: black;
     position: fixed;
@@ -123,7 +127,7 @@ footer {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: var(--color-primary);
+    background-color: var(--color-secundary);
     color: black;
     border: none;
     padding: 10px 15px;
@@ -137,8 +141,8 @@ footer {
 }
 
 #cart-total {
-    background-color: var(--color-secundary);
-    color: white;
+    background-color: var(--color-primary);
+    color: black;
     padding: 2px 5px;
     border-radius: 12px;
     margin-left: 8px;

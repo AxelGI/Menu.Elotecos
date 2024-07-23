@@ -10,7 +10,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f8f8;
+    background-color: var(--color-primary);
 }
 
 .product-detail {
@@ -23,13 +23,13 @@ body {
 .back-button {
     background: red;
     border: none;
-    font-size: 1.5rem;
+    font-size: 3rem;
     cursor: pointer;
 }
 
 .product-image {
     width: 100%;
-    max-width: 400px;
+    max-width: 550px;
     height: auto;
     border-radius: 10px;
 }
@@ -126,7 +126,7 @@ body {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: var(--color-primary);
+    background-color: var(--color-secundary);
     color: black;
     border: none;
     padding: 10px 15px;
@@ -140,8 +140,8 @@ body {
 }
 
 #cart-total {
-    background-color: var(--color-secundary);
-    color: white;
+    background-color: var(--color-primary);
+    color: black;
     padding: 2px 5px;
     border-radius: 12px;
     margin-left: 8px;
