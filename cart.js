@@ -15,8 +15,8 @@ function updateCartDisplay() {
             return `${key}: ${values.join(', ')}`;
         }).join(' | ');
 
-        // Manejar el caso en el que el precio no está definido
         const price = item.price !== undefined ? item.price : 0;
+        const sizeText = item.size ? `${item.size}: $${price.toFixed(2)}` : `Precio: $${price.toFixed(2)}`;
 
         const itemElement = document.createElement('div');
         itemElement.classList.add('cart-item');
@@ -24,7 +24,7 @@ function updateCartDisplay() {
             <div>
                 <strong>${item.title}</strong><br>
                 ${optionsText}<br>
-                Precio: $${price.toFixed(2)} x ${item.quantity}
+                ${sizeText} x ${item.quantity}
             </div>
             <button class="remove-item" data-index="${index}">Eliminar</button>
         `;
@@ -44,13 +44,18 @@ function updateCartDisplay() {
     });
 }
 
+document.addEventListener("DOMContentLoaded", updateCartDisplay);
+
+
+
+
 
 function removeCartItem(index) {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     cart.splice(index, 1);
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartDisplay();
-    updateCartButton();
+    //updateCartButton();
 }
 
 function sendWhatsAppOrder() {

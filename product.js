@@ -40,34 +40,12 @@ function createOptionElement(option, groupName) {
     return container;
 }
 
-function addToCart(product, size, options) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const existingItemIndex = cart.findIndex(item => item.id === product.id && item.size === size && JSON.stringify(item.options) === JSON.stringify(options));
-    
-    if (existingItemIndex !== -1) {
-        cart[existingItemIndex].quantity += 1;
-    } else {
-        cart.push({
-            id: product.id,
-            title: product.title,
-            price: size ? size.price : product.price,
-            size: size ? size.name : null,
-            options: options,
-            quantity: 1
-        });
-    }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartButton();
-}
-
 function updateCartButton() {
     const cartTotalElement = document.getElementById('cart-total');
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const cartTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
     cartTotalElement.textContent = `$${cartTotal.toFixed(2)}`;
 }
-
 document.addEventListener("DOMContentLoaded", () => {
     const params = new URLSearchParams(window.location.search);
     const productId = parseInt(params.get('id'), 10);
@@ -83,27 +61,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     productTitle.textContent = product.title;
     productDescription.textContent = product.description;
-    productPrice.textContent = product.price ? `$${product.price.toFixed(2)}` : 'Precio no disponible';
     productImage.src = product.image;
 
-    let selectedSize = null;
+    let selectedSize = product.sizes[0]; // Default to the first size
+
     if (product.sizes && product.sizes.length > 0) {
         const sizeSelect = document.createElement('select');
         sizeSelect.name = 'size';
         product.sizes.forEach(size => {
             const sizeOption = document.createElement('option');
-            sizeOption.value = size.name;
-            sizeOption.textContent = `${size.name} - $${size.price.toFixed(2)}`;
+            sizeOption.value = size.size;
+            sizeOption.textContent = `${size.size} - $${size.price.toFixed(2)}`;
             sizeSelect.appendChild(sizeOption);
         });
         optionsContainer.appendChild(sizeSelect);
 
-        selectedSize = product.sizes[0];
+        productPrice.textContent = `$${selectedSize.price.toFixed(2)}`; // Set initial price
 
-        // Actualiza el precio al cambiar el tamaño
+        // Update the price when the size changes
         sizeSelect.addEventListener('change', (event) => {
-            selectedSize = product.sizes.find(size => size.name === event.target.value);
-            productPrice.textContent = selectedSize ? `$${selectedSize.price.toFixed(2)}` : 'Precio no disponible';
+            selectedSize = product.sizes.find(size => size.size === event.target.value);
+            productPrice.textContent = `$${selectedSize.price.toFixed(2)}`;
         });
     }
 
@@ -145,6 +123,27 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = 'index.html';
     });
 
-    // Actualizar el botón del carrito flotante al cargar la página
+    // Update the floating cart button when the page loads
     updateCartButton();
 });
+
+function addToCart(product, selectedSize, options) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const existingProductIndex = cart.findIndex(item => item.id === product.id && item.size === selectedSize.size);
+    
+    if (existingProductIndex > -1) {
+        cart[existingProductIndex].quantity += 1;
+    } else {
+        cart.push({
+            id: product.id,
+            title: product.title,
+            size: selectedSize.size,
+            price: selectedSize.price,
+            quantity: 1,
+            options: options
+        });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartButton();
+}

@@ -72,10 +72,10 @@ function updateCartButton() {
     const cartTotalElement = document.getElementById('cart-total');
 
     const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
-    cartTotalElement.textContent = total.toFixed(2);
+    cartTotalElement.textContent = `$${total.toFixed(2)}`;
 }
 
-// Event listeners para los botones de categorías
+// Event listeners for category buttons
 document.getElementById('btn-todo').addEventListener('click', renderAllProducts);
 document.getElementById('btn-elotes').addEventListener('click', () => renderProducts('elotes'));
 document.getElementById('btn-esquites').addEventListener('click', () => renderProducts('esquites'));
@@ -83,6 +83,8 @@ document.getElementById('btn-maruchan').addEventListener('click', () => renderPr
 document.getElementById('btn-snacks').addEventListener('click', () => renderProducts('snacks'));
 document.getElementById('btn-drinks').addEventListener('click', () => renderProducts('drinks'));
 
-// Inicializar con la categoría "Todos" al cargar la página
+// Initialize with the "All" category when the page loads
 renderAllProducts();
 updateCartButton();
+
+
