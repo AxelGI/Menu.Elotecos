@@ -15,18 +15,21 @@ function updateCartDisplay() {
             return `${key}: ${values.join(', ')}`;
         }).join(' | ');
 
+        // Manejar el caso en el que el precio no está definido
+        const price = item.price !== undefined ? item.price : 0;
+
         const itemElement = document.createElement('div');
         itemElement.classList.add('cart-item');
         itemElement.innerHTML = `
             <div>
                 <strong>${item.title}</strong><br>
                 ${optionsText}<br>
-                Precio: $${item.price.toFixed(2)} x ${item.quantity}
+                Precio: $${price.toFixed(2)} x ${item.quantity}
             </div>
             <button class="remove-item" data-index="${index}">Eliminar</button>
         `;
         
-        cartTotal += item.price * item.quantity;
+        cartTotal += price * item.quantity;
 
         cartItemsContainer.appendChild(itemElement);
     });
@@ -40,6 +43,7 @@ function updateCartDisplay() {
         });
     });
 }
+
 
 function removeCartItem(index) {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
