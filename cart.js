@@ -12,19 +12,24 @@ document.addEventListener('DOMContentLoaded', () => {
                 itemElement.classList.add('cart-item');
                 
                 // Formatear opciones
-                const optionsText = item.options ? formatOptions(item.options) + '\n' : '';
+                const optionsText = item.options ? formatOptions(item.options) : '';
                 // Convertir saltos de línea a <br>
                 const formattedOptionsText = optionsText.replace(/\n/g, '<br>');
-                
+
+                // Asegurar que el precio es un número
+                const itemPrice = typeof item.price === 'number' ? item.price : 0;
+
                 itemElement.innerHTML = `
-                    <div class="cart-item-title">${item.title}</div>
-                    <div class="cart-item-price">$${(item.price * item.quantity).toFixed(2)}</div>
+                    <div class="cart-item-row">
+                        <div class="cart-item-title">${item.title}</div>
+                        <div class="cart-item-price">$${itemPrice.toFixed(2)}</div>
+                        <button class="remove-item" data-index="${index}">🗑️</button>
+                    </div>
                     <div class="cart-item-size">${item.size ? `Tamaño: ${item.size}` : ''}</div>
                     <div class="cart-item-options">${formattedOptionsText}</div>
-                    <button class="remove-item" data-index="${index}">Borrar</button>
                 `;
                 cartItemsContainer.appendChild(itemElement);
-                total += item.price * item.quantity;
+                total += itemPrice * item.quantity;
             });
             cartTotalContainer.textContent = `Total: $${total.toFixed(2)}`;
             
@@ -40,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function formatOptions(options) {
-        let formattedOptions = 'Opciones:\n';
+        let formattedOptions = '';
         for (const [key, value] of Object.entries(options)) {
             formattedOptions += `${key}:\n`;
             if (Array.isArray(value)) {
@@ -56,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         return formattedOptions.trim();
     }
-    
+
     function removeFromCart(index) {
         const cart = JSON.parse(localStorage.getItem('cart')) || [];
         cart.splice(index, 1);
@@ -73,14 +78,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let message = 'Hola, quiero hacer una orden:\n\n';
         cart.forEach(item => {
+            const itemPrice = typeof item.price === 'number' ? item.price : 0; // Asegurar que el precio es un número
             message += `- ${item.title} ${item.size ? `(Tamaño: ${item.size})` : ''} x${item.quantity}\n`;
             if (item.options) {
                 message += `  Opciones:\n${formatOptions(item.options)}\n`;
             }
-            message += `  Precio: $${(item.price).toFixed(2)}\n\n`;
+            message += `  Precio: $${itemPrice.toFixed(2)}\n\n`;
         });
 
-        const total = cart.reduce((sum, item) => sum + (item.price), 0);
+        const total = cart.reduce((sum, item) => sum + ((typeof item.price === 'number' ? item.price : 0) * item.quantity), 0);
         message += `Total: $${total.toFixed(2)}`;
 
         const encodedMessage = encodeURIComponent(message);

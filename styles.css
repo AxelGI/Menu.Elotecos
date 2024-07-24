@@ -2,6 +2,7 @@
        --color-primary: #fde428;
        --color-primaryd: #fde428b2;
        --color-secundary: #e42000;
+       --color-logo: #fdbc00;
 
     }
 body {
@@ -9,19 +10,41 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: var(--color-secundary);
+    background-color: var(--color-logo);
 }
 
 header {
-    background-color: var(--color-primary);
-    color: black;
-    padding: 0;
-    text-align: center;
+    background-color: var(--color-logo);
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 10px;
 }
 
-header h1, h3{
+.header-content {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 50%;
+    margin-right: 20px; /* Espacio entre el logo y el texto */
+}
+
+.text-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+#open-info {
+    margin-top: 10px; /* Espacio entre el título y los <h3> */
+}
+
+h1, #open-info h3 {
     margin: 0;
 }
+
 
 nav.horizontal-scroll {
     display: flex;
@@ -121,30 +144,41 @@ footer {
     width: 100%;
     bottom: 0;
 }
-
 /* Estilo para el botón flotante del carrito */
 #cart-button {
     position: fixed;
-    bottom: 65px;
+    bottom: 20px;
     right: 20px;
     background-color: var(--color-secundary);
     color: black;
     border: none;
-    padding: 10px 15px;
-    border-radius: 50%;
+    padding: 10px;
+    border-radius: 50px; /* Cambiado a 50px para hacer el botón más ovalado */
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    font-size: 24px;
+    font-size: 16px; /* Ajusta el tamaño del texto */
     cursor: pointer;
-    z-index: 1000; /* Asegura que esté encima de otros elementos */
+    z-index: 1000;
     display: flex;
     align-items: center;
 }
 
+#cart-icon {
+    font-size: 24px; /* Ajusta el tamaño del icono */
+    margin-right: 8px; /* Espacio entre el icono y el texto */
+}
+
+#cart-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#item-count {
+    font-size: 16px;
+    color: white;
+}
+
 #cart-total {
-    background-color: var(--color-primary);
-    color: black;
-    padding: 2px 5px;
-    border-radius: 12px;
-    margin-left: 8px;
     font-size: 14px;
+    color: white;
 }

@@ -21,9 +21,14 @@
         </div>
     </div>
     <!-- Botón flotante del carrito -->
-    <div id="cart-button">
-        <span id="cart-total">$0.00</span>
-        <button onclick="window.location.href='cart.html'">Ver Carrito</button>
+    <div id="cart-button" onclick="window.location.href='cart.html'">
+        <div id="cart-info">
+            <span id="item-count">0</span> <!-- Contador de productos -->
+            <span id="cart-total">$0.00</span> <!-- Total del carrito -->
+        </div>
+        <span id="cart-icon">🛒</span>
     </div>
+    
+    
 </body>
 </html>

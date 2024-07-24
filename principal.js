@@ -66,16 +66,34 @@ function renderAllProducts() {
     });
 }
 
+// Función para actualizar el botón del carrito
+// Función para actualizar la visualización del botón del carrito
 function updateCartButton() {
+    // Obtener el carrito de localStorage o crear un carrito vacío si no existe
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const cartButton = document.getElementById('cart-button');
-    const cartTotalElement = document.getElementById('cart-total');
 
-    const total = cart.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+    // Obtener los elementos del DOM para el total y el contador de productos
+    const cartTotalElement = document.getElementById('cart-total');
+    const itemCountElement = document.getElementById('item-count');
+
+    // Calcular el total y la cantidad de productos en el carrito
+    let total = 0;
+    let itemCount = 0;
+    cart.forEach(item => {
+        total += item.price * item.quantity;
+        itemCount += item.quantity;
+    });
+
+    // Actualizar los elementos del DOM con los valores calculados
     cartTotalElement.textContent = `$${total.toFixed(2)}`;
+    itemCountElement.textContent = itemCount;
 }
 
-// Event listeners for category buttons
+// Llamada inicial para actualizar la visualización del carrito al cargar la página
+document.addEventListener('DOMContentLoaded', updateCartButton);
+
+
+// Event listeners para los botones de categoría
 document.getElementById('btn-todo').addEventListener('click', renderAllProducts);
 document.getElementById('btn-elotes').addEventListener('click', () => renderProducts('elotes'));
 document.getElementById('btn-esquites').addEventListener('click', () => renderProducts('esquites'));
@@ -83,8 +101,6 @@ document.getElementById('btn-maruchan').addEventListener('click', () => renderPr
 document.getElementById('btn-snacks').addEventListener('click', () => renderProducts('snacks'));
 document.getElementById('btn-drinks').addEventListener('click', () => renderProducts('drinks'));
 
-// Initialize with the "All" category when the page loads
+// Inicializar con la categoría "All" cuando la página se carga
 renderAllProducts();
 updateCartButton();
-
-

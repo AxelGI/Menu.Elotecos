@@ -28,12 +28,19 @@ function createOptionElement(option, groupName) {
     } else {
         const select = document.createElement('select');
         select.name = groupName;
-        
-        // Set the 'required' attribute for non-'Extras' select elements
+
+        // Añadir opción por defecto
+        const defaultOption = document.createElement('option');
+        defaultOption.value = "";
+        defaultOption.textContent = "Seleccione una opción";
+        defaultOption.selected = true;
+        defaultOption.disabled = true;
+        select.appendChild(defaultOption);
+
         if (option.name !== 'Extras') {
             select.required = true;
         }
-        
+
         option.options.forEach(opt => {
             const optionElement = document.createElement('option');
             optionElement.value = JSON.stringify({ name: opt.name, price: opt.price || 0 });
@@ -49,11 +56,10 @@ function createOptionElement(option, groupName) {
 function addToCart(product, size, options) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     const existingItemIndex = cart.findIndex(item => item.id === product.id && item.size === size && JSON.stringify(item.options) === JSON.stringify(options));
-    
-    let basePrice = size ? size.price : product.price; // Verifica que basePrice tenga el valor correcto
+
+    let basePrice = size ? size.price : product.price || 0; // Asegurarse de que basePrice tenga un valor numérico
     let extrasCost = 0;
 
-    // Calcula el costo total de las opciones seleccionadas
     for (const groupName in options) {
         const selectedOptions = options[groupName];
         if (Array.isArray(selectedOptions)) {
@@ -87,20 +93,12 @@ function addToCart(product, size, options) {
 }
 
 function updateCartButton() {
-    const cartTotalElement = document.getElementById('cart-total');
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const cartTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
-    cartTotalElement.textContent = `$${cartTotal.toFixed(2)}`;
-}
+    const itemCount = cart.reduce((total, item) => total + item.quantity, 0);
+    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-function validateOptions(options) {
-    for (const groupName in options) {
-        // Solo verifica que no esté vacío si no es 'Extras'
-        if (groupName !== 'extras' && options[groupName].length === 0) {
-            return false;
-        }
-    }
-    return true;
+    document.getElementById('item-count').textContent = itemCount; // Número de productos
+    document.getElementById('cart-total').textContent = `$${total.toFixed(2)}`; // Total del carrito
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -112,7 +110,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const productTitle = document.querySelector('.product-info h1');
     const productDescription = document.querySelector('.product-info p');
-    const productPrice = document.querySelector('.product-info .price');
+    const productPrice = document.createElement('span');
+    productPrice.classList.add('price');
     const productImage = document.querySelector('.product-image');
     const optionsContainer = document.querySelector('.options');
     const errorMessageElement = document.createElement('div');
@@ -120,32 +119,53 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.insertBefore(errorMessageElement, document.querySelector('#cart-button'));
 
     productTitle.textContent = product.title;
-    productDescription.textContent = product.description;
     productPrice.textContent = product.price ? `$${product.price.toFixed(2)}` : 'Precio no disponible';
+    productTitle.appendChild(productPrice);
+    productDescription.textContent = product.description;
     productImage.src = product.image;
 
     let selectedSize = null;
     if (product.sizes && product.sizes.length > 0) {
         const sizeSelect = document.createElement('select');
         sizeSelect.name = 'size';
+        const defaultOption = document.createElement('option');
+        defaultOption.value = "";
+        defaultOption.textContent = "Seleccione un tamaño";
+        defaultOption.selected = true;
+        defaultOption.disabled = true;
+        sizeSelect.appendChild(defaultOption);
+
         product.sizes.forEach(size => {
             const sizeOption = document.createElement('option');
-            sizeOption.value = size.size; // Cambiado a size.size
+            sizeOption.value = JSON.stringify(size);
             sizeOption.textContent = `${size.size} - $${size.price.toFixed(2)}`;
+            sizeOption.dataset.price = size.price;
             sizeSelect.appendChild(sizeOption);
         });
         optionsContainer.appendChild(sizeSelect);
 
-        selectedSize = product.sizes[0];
-
-        // Actualiza el precio al cambiar el tamaño
         sizeSelect.addEventListener('change', (event) => {
-            selectedSize = product.sizes.find(size => size.size === event.target.value); // Cambiado a size.size
+            const selectedOption = event.target.options[event.target.selectedIndex];
+            selectedSize = JSON.parse(selectedOption.value);
             productPrice.textContent = selectedSize ? `$${selectedSize.price.toFixed(2)}` : 'Precio no disponible';
         });
     }
 
     const options = {};
+
+    // Añadir el checkbox de "¿Con todo?"
+    const withEverythingLabel = document.createElement('label');
+    const withEverythingCheckbox = document.createElement('input');
+    withEverythingCheckbox.type = 'checkbox';
+    withEverythingCheckbox.checked = true;
+    withEverythingLabel.appendChild(withEverythingCheckbox);
+    withEverythingLabel.appendChild(document.createTextNode('¿Con todo?'));
+    optionsContainer.appendChild(withEverythingLabel);
+
+    // Crear un contenedor para "Extras" que aparezca después
+    const extrasContainer = document.createElement('div');
+    extrasContainer.classList.add('extras-container');
+
     product.options.forEach(option => {
         const groupName = option.name.replace(/\s+/g, '-').toLowerCase();
         const optionGroup = document.createElement('div');
@@ -157,7 +177,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const optionElement = createOptionElement(option, groupName);
         optionGroup.appendChild(optionElement);
 
-        optionsContainer.appendChild(optionGroup);
+        if (option.name === 'Extras') {
+            extrasContainer.appendChild(optionGroup);
+        } else {
+            optionsContainer.appendChild(optionGroup);
+        }
 
         options[groupName] = [];
         optionElement.querySelectorAll('input, select').forEach(input => {
@@ -178,16 +202,63 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
+    optionsContainer.appendChild(extrasContainer);
+
+    // Función para validar las opciones seleccionadas
+function validateOptions(options) {
+    for (const groupName in options) {
+        // Solo verifica que no esté vacío si no es 'Extras'
+        if (groupName !== 'extras' && options[groupName].length === 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// Asegúrate de definir validateOptions antes de usarla
+document.addEventListener("DOMContentLoaded", () => {
+    // Resto del código...
+
     document.querySelector('.add-to-cart').addEventListener('click', () => {
         if (validateOptions(options)) {
             addToCart(product, selectedSize, options);
-            alert('¡Producto añadido :3!');
+            alert('¡Producto añadido!');
             window.location.href = 'index.html';
         } else {
-            alert('Por favor selecciona al menos una opción de cada grupo.');
+            alert('Por favor, no dejes nada sin llenar');
         }
     });
 
-    // Actualizar el botón del carrito flotante al cargar la página
+    updateCartButton();
+});
+
+    // Manejar el evento de cambio en el checkbox "¿Con todo?"
+    withEverythingCheckbox.addEventListener('change', (event) => {
+        const customInputContainer = document.querySelector('.custom-input-container');
+        if (event.target.checked) {
+            if (customInputContainer) {
+                customInputContainer.remove();
+            }
+        } else {
+            const inputContainer = document.createElement('div');
+            inputContainer.classList.add('custom-input-container');
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.placeholder = 'Sin mayonesa, poco queso';
+            inputContainer.appendChild(input);
+            optionsContainer.insertBefore(inputContainer, extrasContainer);
+        }
+    });
+
+    document.querySelector('.add-to-cart').addEventListener('click', () => {
+        if (validateOptions(options)) {
+            addToCart(product, selectedSize, options);
+            alert('¡Producto añadido!');
+            window.location.href = 'index.html';
+        } else {
+            alert('Por favor, no dejes nada sin llenar');
+        }
+    });
+
     updateCartButton();
 });

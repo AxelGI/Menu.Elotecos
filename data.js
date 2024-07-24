@@ -286,7 +286,7 @@ export const products = {
             price: 55.00,
             image: "img/maruchan-clasica.PNG",
             options: [
-                { name: "Sabor", options: maruchanOptions },
+                { name: "Sopa sabor", options: maruchanOptions },
                 { name: "Extras", options: extrasOptions},
             ]
         },
@@ -298,7 +298,7 @@ export const products = {
             image: "img/maruchan-clasica.PNG",
             options: [
                 { name: "Cubierta fritura", options: frituraOptions },
-                { name: "Sabor", options: maruchanOptions },
+                { name: "Sopa sabor", options: maruchanOptions },
                 { name: "Extras", options: extrasOptions},
             ]
         },
@@ -311,7 +311,7 @@ export const products = {
             options: [
                 { name: "Cubierta fritura", options: frituraOptions },
                 { name: "Bolsa papitas", options: papitasOptions },
-                { name: "Sabor", options: maruchanOptions },
+                { name: "Sopa sabor", options: maruchanOptions },
                 { name: "Extras", options: extrasOptions},
             ]
         },
@@ -322,7 +322,7 @@ export const products = {
             price: 80.00,
             image: "img/maruchan-suadero-pastor.PNG",
             options: [
-                { name: "Sabor", options: maruchanOptions },
+                { name: "Sopa sabor", options: maruchanOptions },
                 { name: "Carne", options: carneOptions},
                 { name: "Verdura", options: verduraOptions},
                 { name: "Extras", options: extrasOptions},
