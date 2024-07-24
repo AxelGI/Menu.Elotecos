@@ -89,6 +89,35 @@ function updateCartButton() {
     itemCountElement.textContent = itemCount;
 }
 
+const openStatusElement = document.getElementById('open-status');
+    const statusBullet = document.getElementById('status-bullet');
+
+    function updateOpenStatus() {
+        const now = new Date();
+        const hours = now.getHours();
+        const minutes = now.getMinutes();
+
+        const openingHour = 18; // 6:00 PM
+        const closingHour = 22; // 10:00 PM
+
+        if (hours > openingHour || (hours === openingHour && minutes >= 30)) {
+            if (hours < closingHour || (hours === closingHour && minutes <= 30)) {
+                openStatusElement.textContent = 'Abierto';
+                statusBullet.className = 'bullet green'; // Cambia la bolita a verde
+            } else {
+                openStatusElement.textContent = 'Cerrado';
+                statusBullet.className = 'bullet red'; // Cambia la bolita a roja
+            }
+        } else {
+            openStatusElement.textContent = 'Cerrado';
+            statusBullet.className = 'bullet red'; // Cambia la bolita a roja
+        }
+    }
+
+    updateOpenStatus();
+
+updateOpenStatus();
+
 // Llamada inicial para actualizar la visualización del carrito al cargar la página
 document.addEventListener('DOMContentLoaded', updateCartButton);
 

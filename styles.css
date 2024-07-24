@@ -10,11 +10,11 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    background-color: var(--color-logo);
+    background-color: var(--color-secundary);
 }
 
 header {
-    background-color: var(--color-logo);
+    background-color: var(--color-primary);
     display: flex;
     align-items: center;
     justify-content: space-evenly;
@@ -27,7 +27,8 @@ header {
 }
 
 .logo {
-    width: 50%;
+    width: 100px; /* Ajusta el tamaño de la imagen */
+    height: auto;
     margin-right: 20px; /* Espacio entre el logo y el texto */
 }
 
@@ -43,6 +44,27 @@ header {
 
 h1, #open-info h3 {
     margin: 0;
+}
+
+#status-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#status-bullet {
+    width: 15px; /* Tamaño de la bolita */
+    height: 15px;
+    border-radius: 50%;
+    margin-right: 10px; /* Espacio entre la bolita y el texto */
+}
+
+.bullet.red {
+    background-color: red;
+}
+
+.bullet.green {
+    background-color: green;
 }
 
 

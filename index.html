@@ -5,22 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ordenes Elotecos</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="icon" href="Logo_Elotecos.PNG" type="Elotecos-icon">
+    <link rel="icon" href="Logo_Elotecos.png" type="Elotecos-icon">
     <script defer type="module" src="principal.js"></script>
 </head>
 <body>
     <header>
-        <div class="header-content">
-            <img src="Logo_Elotecos.PNG" alt="Logo_Elotecos" class="logo">
-            <div class="text-content">
-                <h1>Los Elotecos</h1>
-                <div id="open-info">
-                    <h3>Abierto/Cerrado</h3>
-                    <h3>Más información</h3>
-                </div>
+        <img src="Logo_Elotecos.PNG" alt="Logo_Elotecos" class="logo">
+        <h1>Los Elotecos</h1>
+        <div id="open-info">
+            <div id="status-container">
+                <span id="status-bullet" class="bullet"></span>
+                <h3 id="open-status">Abierto/Cerrado</h3>
             </div>
+            <h3>Horarios</h3>
         </div>
-    </header>
+    </header>   
+    
     
     <nav class="horizontal-scroll">
         <button id="btn-todo"><b>Todo</b></button>
