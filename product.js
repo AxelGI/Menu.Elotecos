@@ -20,18 +20,24 @@ function createOptionElement(option, groupName) {
             const checkbox = document.createElement('input');
             checkbox.type = 'checkbox';
             checkbox.name = groupName;
-            checkbox.value = opt.name;
+            checkbox.value = JSON.stringify({ name: opt.name, price: opt.price || 0 });
             label.appendChild(checkbox);
-            label.appendChild(document.createTextNode(opt.name));
+            label.appendChild(document.createTextNode(opt.price ? `${opt.name} - $${opt.price.toFixed(2)}` : opt.name));
             container.appendChild(label);
         });
     } else {
         const select = document.createElement('select');
         select.name = groupName;
+        
+        // Set the 'required' attribute for non-'Extras' select elements
+        if (option.name !== 'Extras') {
+            select.required = true;
+        }
+        
         option.options.forEach(opt => {
             const optionElement = document.createElement('option');
-            optionElement.value = opt.name;
-            optionElement.textContent = opt.name;
+            optionElement.value = JSON.stringify({ name: opt.name, price: opt.price || 0 });
+            optionElement.textContent = opt.price ? `${opt.name} - $${opt.price.toFixed(2)}` : opt.name;
             select.appendChild(optionElement);
         });
         container.appendChild(select);
@@ -40,12 +46,63 @@ function createOptionElement(option, groupName) {
     return container;
 }
 
+function addToCart(product, size, options) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const existingItemIndex = cart.findIndex(item => item.id === product.id && item.size === size && JSON.stringify(item.options) === JSON.stringify(options));
+    
+    let basePrice = size ? size.price : product.price;
+    let extrasCost = 0;
+
+    // Calculate the total price of the selected options
+    for (const groupName in options) {
+        const selectedOptions = options[groupName];
+        if (Array.isArray(selectedOptions)) {
+            selectedOptions.forEach(opt => {
+                const option = JSON.parse(opt);
+                extrasCost += option.price;
+            });
+        } else {
+            const option = JSON.parse(selectedOptions);
+            extrasCost += option.price;
+        }
+    }
+
+    const totalPrice = basePrice + extrasCost;
+
+    if (existingItemIndex !== -1) {
+        cart[existingItemIndex].quantity += 1;
+    } else {
+        cart.push({
+            id: product.id,
+            title: product.title,
+            price: totalPrice,
+            size: size ? size.name : null,
+            options: options,
+            quantity: 1
+        });
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartButton();
+}
+
 function updateCartButton() {
     const cartTotalElement = document.getElementById('cart-total');
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const cartTotal = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
     cartTotalElement.textContent = `$${cartTotal.toFixed(2)}`;
 }
+
+function validateOptions(options) {
+    for (const groupName in options) {
+        // Solo verifica que no esté vacío si no es 'Extras'
+        if (groupName !== 'extras' && options[groupName].length === 0) {
+            return false;
+        }
+    }
+    return true;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const params = new URLSearchParams(window.location.search);
     const productId = parseInt(params.get('id'), 10);
@@ -58,30 +115,33 @@ document.addEventListener("DOMContentLoaded", () => {
     const productPrice = document.querySelector('.product-info .price');
     const productImage = document.querySelector('.product-image');
     const optionsContainer = document.querySelector('.options');
+    const errorMessageElement = document.createElement('div');
+    errorMessageElement.classList.add('error-message');
+    document.body.insertBefore(errorMessageElement, document.querySelector('#cart-button'));
 
     productTitle.textContent = product.title;
     productDescription.textContent = product.description;
+    productPrice.textContent = product.price ? `$${product.price.toFixed(2)}` : 'Precio no disponible';
     productImage.src = product.image;
 
-    let selectedSize = product.sizes[0]; // Default to the first size
-
+    let selectedSize = null;
     if (product.sizes && product.sizes.length > 0) {
         const sizeSelect = document.createElement('select');
         sizeSelect.name = 'size';
         product.sizes.forEach(size => {
             const sizeOption = document.createElement('option');
-            sizeOption.value = size.size;
-            sizeOption.textContent = `${size.size} - $${size.price.toFixed(2)}`;
+            sizeOption.value = size.name;
+            sizeOption.textContent = `${size.name} - $${size.price.toFixed(2)}`;
             sizeSelect.appendChild(sizeOption);
         });
         optionsContainer.appendChild(sizeSelect);
 
-        productPrice.textContent = `$${selectedSize.price.toFixed(2)}`; // Set initial price
+        selectedSize = product.sizes[0];
 
-        // Update the price when the size changes
+        // Actualiza el precio al cambiar el tamaño
         sizeSelect.addEventListener('change', (event) => {
-            selectedSize = product.sizes.find(size => size.size === event.target.value);
-            productPrice.textContent = `$${selectedSize.price.toFixed(2)}`;
+            selectedSize = product.sizes.find(size => size.name === event.target.value);
+            productPrice.textContent = selectedSize ? `$${selectedSize.price.toFixed(2)}` : 'Precio no disponible';
         });
     }
 
@@ -119,31 +179,18 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     document.querySelector('.add-to-cart').addEventListener('click', () => {
-        addToCart(product, selectedSize, options);
-        window.location.href = 'index.html';
+        if (validateOptions(options)) {
+            addToCart(product, selectedSize, options);
+            alert('¡Producto añadido :3!');
+            window.location.href = 'index.html';
+        } else {
+            alert('Por favor selecciona al menos una opción de cada grupo.');
+            setTimeout(() => {
+    // Si deseas realizar alguna acción después de que el mensaje se haya mostrado, colócala aquí.
+    }, 3000);
+        }
     });
 
-    // Update the floating cart button when the page loads
+    // Actualizar el botón del carrito flotante al cargar la página
     updateCartButton();
 });
-
-function addToCart(product, selectedSize, options) {
-    const cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const existingProductIndex = cart.findIndex(item => item.id === product.id && item.size === selectedSize.size);
-    
-    if (existingProductIndex > -1) {
-        cart[existingProductIndex].quantity += 1;
-    } else {
-        cart.push({
-            id: product.id,
-            title: product.title,
-            size: selectedSize.size,
-            price: selectedSize.price,
-            quantity: 1,
-            options: options
-        });
-    }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartButton();
-}
