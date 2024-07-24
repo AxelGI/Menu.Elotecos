@@ -61,6 +61,7 @@ nav.horizontal-scroll button {
     border: none;
     cursor: pointer;
     white-space: nowrap;
+    font-size: 20px; /* Cambia el tamaño de la fuente aquí */
 }
 
 nav.horizontal-scroll button:hover {
