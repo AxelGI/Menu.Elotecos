@@ -50,10 +50,10 @@ function addToCart(product, size, options) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
     const existingItemIndex = cart.findIndex(item => item.id === product.id && item.size === size && JSON.stringify(item.options) === JSON.stringify(options));
     
-    let basePrice = size ? size.price : product.price;
+    let basePrice = size ? size.price : product.price; // Verifica que basePrice tenga el valor correcto
     let extrasCost = 0;
 
-    // Calculate the total price of the selected options
+    // Calcula el costo total de las opciones seleccionadas
     for (const groupName in options) {
         const selectedOptions = options[groupName];
         if (Array.isArray(selectedOptions)) {
@@ -130,8 +130,8 @@ document.addEventListener("DOMContentLoaded", () => {
         sizeSelect.name = 'size';
         product.sizes.forEach(size => {
             const sizeOption = document.createElement('option');
-            sizeOption.value = size.name;
-            sizeOption.textContent = `${size.name} - $${size.price.toFixed(2)}`;
+            sizeOption.value = size.size; // Cambiado a size.size
+            sizeOption.textContent = `${size.size} - $${size.price.toFixed(2)}`;
             sizeSelect.appendChild(sizeOption);
         });
         optionsContainer.appendChild(sizeSelect);
@@ -140,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Actualiza el precio al cambiar el tamaño
         sizeSelect.addEventListener('change', (event) => {
-            selectedSize = product.sizes.find(size => size.name === event.target.value);
+            selectedSize = product.sizes.find(size => size.size === event.target.value); // Cambiado a size.size
             productPrice.textContent = selectedSize ? `$${selectedSize.price.toFixed(2)}` : 'Precio no disponible';
         });
     }
@@ -185,9 +185,6 @@ document.addEventListener("DOMContentLoaded", () => {
             window.location.href = 'index.html';
         } else {
             alert('Por favor selecciona al menos una opción de cada grupo.');
-            setTimeout(() => {
-    // Si deseas realizar alguna acción después de que el mensaje se haya mostrado, colócala aquí.
-    }, 3000);
         }
     });
 
