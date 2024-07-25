@@ -165,6 +165,31 @@ document.addEventListener("DOMContentLoaded", () => {
     withEverythingLabel.appendChild(document.createTextNode('¿Con todo?'));
     optionsContainer.appendChild(withEverythingLabel);
 
+    // Manejar el evento de cambio en el checkbox "¿Con todo?"
+    withEverythingCheckbox.addEventListener('change', (event) => {
+        const customInputContainer = document.querySelector('.custom-input-container');
+        if (event.target.checked) {
+            if (customInputContainer) {
+                customInputContainer.remove();
+            }
+        } else {
+            if (!customInputContainer) {
+                const inputContainer = document.createElement('div');
+                inputContainer.classList.add('custom-input-container');
+                const input = document.createElement('input');
+                input.type = 'text';
+                input.placeholder = 'Sin mayonesa, poco queso';
+                input.id = 'custom-text'; // Añadir id para poder seleccionarlo
+                inputContainer.appendChild(input);
+                
+                // Insertar inputContainer después de withEverythingLabel
+                optionsContainer.insertBefore(inputContainer, withEverythingLabel.nextSibling);
+            }
+        }
+    });
+    
+    
+
     // Crear un contenedor para "Extras" que aparezca después
     const extrasContainer = document.createElement('div');
     extrasContainer.classList.add('extras-container');
@@ -207,24 +232,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     optionsContainer.appendChild(extrasContainer);
 
-    // Manejar el evento de cambio en el checkbox "¿Con todo?"
-withEverythingCheckbox.addEventListener('change', (event) => {
-    const customInputContainer = document.querySelector('.custom-input-container');
-    if (event.target.checked) {
-        if (customInputContainer) {
-            customInputContainer.remove();
-        }
-    } else {
-        const inputContainer = document.createElement('div');
-        inputContainer.classList.add('custom-input-container');
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.placeholder = 'Sin mayonesa, poco queso';
-        input.id = 'custom-text'; // Añadir id para poder seleccionarlo
-        inputContainer.appendChild(input);
-        optionsContainer.insertBefore(inputContainer, extrasContainer);
-    }
-});
+    
 
 document.querySelector('.add-to-cart').addEventListener('click', () => {
     const customText = document.getElementById('custom-text') ? document.getElementById('custom-text').value : ''; // Obtener el texto personalizado
