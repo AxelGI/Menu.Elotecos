@@ -375,7 +375,7 @@ export const products = {
             title: "Vaso Preparado",
             description: "Vaso escarchado con polvo picoso 500ml.",
             price: 45.00,
-            image: "https://example.com/vaso-preparado.jpg",
+            image: "img/vaso-preparado.png",
             options: [
                 { name: "Sabor", options: saborPreparadas},
             ]
@@ -385,7 +385,7 @@ export const products = {
             title: "Pati Bañera",
             description: "Incluye la tina, pato y la bebida preparada. 500ml.",
             price: 80.00,
-            image: "img/pati-banera.PNG",
+            image: "img/pati-bebida.PNG",
             options: [
                 { name: "Sabor", options: saborPreparadas},
             ]
@@ -424,7 +424,7 @@ export const products = {
             title: "Coca Cola",
             description: "600ml.",
             price: 25.00,
-            image: "https://example.com/coca-cola.jpg",
+            image: "img/coca-cola.png",
             options: []
         },
         {
@@ -432,7 +432,7 @@ export const products = {
             title: "Arizona",
             description: "Mango, Kiwi-Fresa, Sandía, Té Verde. 680ml.",
             price: 25.00,
-            image: "https://example.com/arizona.jpg",
+            image: "img/arizona.png",
             options: [
                 { name: "Sabor", options: saborArizona},
             ]
@@ -442,7 +442,7 @@ export const products = {
             title: "Boing",
             description: "Mango, Fresa, Manzana, Uva. 500ml.",
             price: 20.00,
-            image: "https://example.com/boing.jpg",
+            image: "img/boing.png",
             options: [
                 { name: "Sabor", options: saborBoings},
             ]
@@ -452,7 +452,7 @@ export const products = {
             title: "Agua Natural",
             description: "600ml.",
             price: 15.00,
-            image: "https://example.com/agua-natural.jpg",
+            image: "img/agua.png",
             options: []
         }
     ]
