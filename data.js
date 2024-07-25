@@ -385,7 +385,7 @@ export const products = {
             title: "Pati Bañera",
             description: "Incluye la tina, pato y la bebida preparada. 500ml.",
             price: 80.00,
-            image: "img/pati-bebida.PNG",
+            image: "img/pati-banera.PNG",
             options: [
                 { name: "Sabor", options: saborPreparadas},
             ]
@@ -395,7 +395,7 @@ export const products = {
             title: "Pati Bebida",
             description: "Incluye la tina, pato y la bebida preparada. 500ml.",
             price: 80.00,
-            image: "img/pati-banera.PNG",
+            image: "img/pati-bebida.png",
             options: [
                 { name: "Sabor", options: saborPreparadas},
             ]
