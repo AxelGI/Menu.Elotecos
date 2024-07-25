@@ -15,10 +15,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 const optionsText = item.options ? formatOptions(item.options) : '';
                 // Convertir saltos de línea a <br>
                 const formattedOptionsText = optionsText.replace(/\n/g, '<br>');
-
+                
                 // Asegurar que el precio es un número
                 const itemPrice = typeof item.price === 'number' ? item.price : 0;
-
+    
                 itemElement.innerHTML = `
                     <div class="cart-item-row">
                         <div class="cart-item-title">${item.title}</div>
@@ -26,7 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
                         <button class="remove-item" data-index="${index}">🗑️</button>
                     </div>
                     <div class="cart-item-size">${item.size ? `Tamaño: ${item.size}` : ''}</div>
-                    <div class="cart-item-options">${formattedOptionsText}</div>
+                    ${formattedOptionsText ? `<div class="cart-item-options">${formattedOptionsText}</div>` : ''}
+                    ${item.customText ? `<div class="cart-item-custom-text">Detalles: ${item.customText}</div>` : ''}
                 `;
                 cartItemsContainer.appendChild(itemElement);
                 total += itemPrice * item.quantity;
@@ -43,21 +44,26 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+    
 
     function formatOptions(options) {
         let formattedOptions = '';
         for (const [key, value] of Object.entries(options)) {
-            formattedOptions += `${key}:\n`;
             if (Array.isArray(value)) {
-                value.forEach(opt => {
-                    const optObj = JSON.parse(opt);
-                    formattedOptions += `  - ${optObj.name} ${optObj.price ? `- $${optObj.price.toFixed(2)}` : ''}\n`;
-                });
+                if (value.length > 0) {
+                    formattedOptions += `${key}:\n`;
+                    value.forEach(opt => {
+                        const optObj = JSON.parse(opt);
+                        formattedOptions += `  - ${optObj.name} ${optObj.price ? `- $${optObj.price.toFixed(2)}` : ''}\n`;
+                    });
+                    formattedOptions += '\n'; // Añadir un salto de línea extra entre cada grupo de opciones
+                }
             } else {
                 const optObj = JSON.parse(value);
-                formattedOptions += `  - ${optObj.name} ${optObj.price ? `- $${optObj.price.toFixed(2)}` : ''}\n`;
+                if (optObj.name) {
+                    formattedOptions += `${key}:\n  - ${optObj.name} ${optObj.price ? `- $${optObj.price.toFixed(2)}` : ''}\n\n`;
+                }
             }
-            formattedOptions += '\n'; // Añadir un salto de línea extra entre cada grupo de opciones
         }
         return formattedOptions.trim();
     }
@@ -81,7 +87,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const itemPrice = typeof item.price === 'number' ? item.price : 0; // Asegurar que el precio es un número
             message += `- ${item.title} ${item.size ? `(Tamaño: ${item.size})` : ''} x${item.quantity}\n`;
             if (item.options) {
-                message += `  Opciones:\n${formatOptions(item.options)}\n`;
+                const optionsText = formatOptions(item.options);
+                if (optionsText) {
+                    message += `  Opciones:\n${optionsText}\n`;
+                }
             }
             message += `  Precio: $${itemPrice.toFixed(2)}\n\n`;
         });

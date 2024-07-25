@@ -53,11 +53,11 @@ function createOptionElement(option, groupName) {
     return container;
 }
 
-function addToCart(product, size, options) {
+function addToCart(product, size, options, customText) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    const existingItemIndex = cart.findIndex(item => item.id === product.id && item.size === size && JSON.stringify(item.options) === JSON.stringify(options));
+    const existingItemIndex = cart.findIndex(item => item.id === product.id && item.size === size && JSON.stringify(item.options) === JSON.stringify(options) && item.customText === customText);
 
-    let basePrice = size ? size.price : product.price || 0; // Asegurarse de que basePrice tenga un valor numérico
+    let basePrice = size ? size.price : product.price || 0;
     let extrasCost = 0;
 
     for (const groupName in options) {
@@ -84,6 +84,7 @@ function addToCart(product, size, options) {
             price: totalPrice,
             size: size ? size.name : null,
             options: options,
+            customText: customText || '', // Añadir customText
             quantity: 1
         });
     }
@@ -91,6 +92,7 @@ function addToCart(product, size, options) {
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartButton();
 }
+
 
 function updateCartButton() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
@@ -152,6 +154,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const options = {};
+    let customText = ''; // Variable para el texto personalizado
 
     // Añadir el checkbox de "¿Con todo?"
     const withEverythingLabel = document.createElement('label');
@@ -204,61 +207,48 @@ document.addEventListener("DOMContentLoaded", () => {
 
     optionsContainer.appendChild(extrasContainer);
 
-    // Función para validar las opciones seleccionadas
-function validateOptions(options) {
-    for (const groupName in options) {
-        // Solo verifica que no esté vacío si no es 'Extras'
-        if (groupName !== 'extras' && options[groupName].length === 0) {
-            return false;
+    // Manejar el evento de cambio en el checkbox "¿Con todo?"
+withEverythingCheckbox.addEventListener('change', (event) => {
+    const customInputContainer = document.querySelector('.custom-input-container');
+    if (event.target.checked) {
+        if (customInputContainer) {
+            customInputContainer.remove();
         }
+    } else {
+        const inputContainer = document.createElement('div');
+        inputContainer.classList.add('custom-input-container');
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.placeholder = 'Sin mayonesa, poco queso';
+        input.id = 'custom-text'; // Añadir id para poder seleccionarlo
+        inputContainer.appendChild(input);
+        optionsContainer.insertBefore(inputContainer, extrasContainer);
     }
-    return true;
-}
-
-// Asegúrate de definir validateOptions antes de usarla
-document.addEventListener("DOMContentLoaded", () => {
-    // Resto del código...
-
-    document.querySelector('.add-to-cart').addEventListener('click', () => {
-        if (validateOptions(options)) {
-            addToCart(product, selectedSize, options);
-            alert('¡Producto añadido!');
-            window.location.href = 'index.html';
-        } else {
-            alert('Por favor, no dejes nada sin llenar');
-        }
-    });
-
-    updateCartButton();
 });
 
-    // Manejar el evento de cambio en el checkbox "¿Con todo?"
-    withEverythingCheckbox.addEventListener('change', (event) => {
-        const customInputContainer = document.querySelector('.custom-input-container');
-        if (event.target.checked) {
-            if (customInputContainer) {
-                customInputContainer.remove();
-            }
-        } else {
-            const inputContainer = document.createElement('div');
-            inputContainer.classList.add('custom-input-container');
-            const input = document.createElement('input');
-            input.type = 'text';
-            input.placeholder = 'Sin mayonesa, poco queso';
-            inputContainer.appendChild(input);
-            optionsContainer.insertBefore(inputContainer, extrasContainer);
-        }
-    });
+document.querySelector('.add-to-cart').addEventListener('click', () => {
+    const customText = document.getElementById('custom-text') ? document.getElementById('custom-text').value : ''; // Obtener el texto personalizado
+    if (validateOptions(options)) {
+        addToCart(product, selectedSize, options, customText);
+        alert('¡Producto añadido!');
+        window.location.href = 'index.html';
+    } else {
+        alert('Por favor, no dejes nada sin llenar');
+    }
+});
 
-    document.querySelector('.add-to-cart').addEventListener('click', () => {
-        if (validateOptions(options)) {
-            addToCart(product, selectedSize, options);
-            alert('¡Producto añadido!');
-            window.location.href = 'index.html';
-        } else {
-            alert('Por favor, no dejes nada sin llenar');
+
+    // Función para validar las opciones seleccionadas
+    function validateOptions(options) {
+        for (const groupName in options) {
+            // Solo verifica que no esté vacío si no es 'Extras'
+            if (groupName !== 'extras' && options[groupName].length === 0) {
+                return false;
+            }
         }
-    });
+        return true;
+    }
+
 
     updateCartButton();
 });
