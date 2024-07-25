@@ -96,12 +96,13 @@ const openStatusElement = document.getElementById('open-status');
         const now = new Date();
         const hours = now.getHours();
         const minutes = now.getMinutes();
-
-        const openingHour = 18; // 6:00 PM
+    
+        const openingHour = 19; // 7:00 PM
         const closingHour = 22; // 10:00 PM
-
-        if (hours > openingHour || (hours === openingHour && minutes >= 30)) {
-            if (hours < closingHour || (hours === closingHour && minutes <= 30)) {
+        const closingMinutes = 30; // 10:30 PM
+    
+        if (hours > openingHour || (hours === openingHour && minutes >= 0)) {
+            if (hours < closingHour || (hours === closingHour && minutes <= closingMinutes)) {
                 openStatusElement.textContent = 'Abierto';
                 statusBullet.className = 'bullet green'; // Cambia la bolita a verde
             } else {
@@ -113,6 +114,7 @@ const openStatusElement = document.getElementById('open-status');
             statusBullet.className = 'bullet red'; // Cambia la bolita a roja
         }
     }
+    
 
     updateOpenStatus();
 
