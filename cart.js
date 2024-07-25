@@ -81,7 +81,17 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
     
-        let message = 'Hola, quiero hacer una orden:\n\n';
+        // Obtener detalles del cliente
+        const customerName = document.getElementById('customer-name').value.trim();
+        const customerPhone = document.getElementById('customer-phone').value.trim();
+    
+        // Verificar que se ingresen nombre y número
+        if (!customerName || !customerPhone) {
+            alert('Por favor, ingresa tu nombre y número de teléfono.');
+            return;
+        }
+    
+        let message = `Hola, soy ${customerName}. Quiero hacer una orden:\n\n`;
         cart.forEach(item => {
             const itemPrice = typeof item.price === 'number' ? item.price : 0; // Asegurar que el precio es un número
             message += `- ${item.title} ${item.size ? `(Tamaño: ${item.size})` : ''} x${item.quantity}\n`;
@@ -98,11 +108,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     
         const total = cart.reduce((sum, item) => sum + ((typeof item.price === 'number' ? item.price : 0) * item.quantity), 0);
-        message += `Total: $${total.toFixed(2)}`;
+        message += `Total: $${total.toFixed(2)}\n\n`;
+        message += `Mi número es: ${customerPhone}`;
     
         const encodedMessage = encodeURIComponent(message);
         window.open(`https://api.whatsapp.com/send?phone=+5215549683833&text=${encodedMessage}`, '_blank');
     }
+    
 
     // Añade los event listeners al cargar el DOM
     document.querySelector('button[onclick="sendWhatsAppOrder()"]').addEventListener('click', sendWhatsAppOrder);

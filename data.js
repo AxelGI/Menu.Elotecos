@@ -94,7 +94,7 @@ export const products = {
             title: "Elote Clásico",
             description: "Elote tradicional preparado con mantequilla, mayonesa y queso rallado.",
             price: 30.00,
-            image: "img/elote-natural.PNG",
+            image: "img/elote-clasico.PNG",
             options: [
                 { name: "Extras", options: extrasOptions},
             ]
@@ -186,7 +186,7 @@ export const products = {
                 { size: "Chico", price: 25.00 },
                 { size: "Grande", price: 45.00 }
             ],
-            image: "img/esquite-clasico.PNG",
+            image: "img/esquite-natural.PNG",
             options: [
                 { name: "Extras", options: extrasOptions},
             ]

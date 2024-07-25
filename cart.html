@@ -10,6 +10,13 @@
 </head>
 <body>
     <h1>Orden hasta el momento</h1>
+    <div class="customer-details">
+        <label for="customer-name">Nombre:</label>
+        <input type="text" id="customer-name" placeholder="Tu nombre">
+        
+        <label for="customer-phone">Número para contactar:</label>
+        <input type="text" id="customer-phone" placeholder="Tu número de teléfono">
+    </div>
     <div id="cart-items"></div>
     <div id="cart-total">Total: $0.00</div>
     <button onclick="sendWhatsAppOrder()">Enviar Orden</button>
