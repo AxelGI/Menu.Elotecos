@@ -295,7 +295,7 @@ export const products = {
             title: "Maruchan esquite y fritura",
             description: "Maruchan-esquite con cobertura de fritura a elegir: Cheeto Flamin, Doritos, Takis o Ruffles.",
             price: 60.00,
-            image: "img/maruchan-clasica.PNG",
+            image: "img/maruchan-loca.PNG",
             options: [
                 { name: "Cubierta fritura", options: frituraOptions },
                 { name: "Sopa sabor", options: maruchanOptions },
