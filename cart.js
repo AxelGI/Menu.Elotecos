@@ -44,7 +44,6 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
-    
 
     function formatOptions(options) {
         let formattedOptions = '';
@@ -81,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('No tienes productos en tu carrito.');
             return;
         }
-
+    
         let message = 'Hola, quiero hacer una orden:\n\n';
         cart.forEach(item => {
             const itemPrice = typeof item.price === 'number' ? item.price : 0; // Asegurar que el precio es un número
@@ -92,12 +91,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     message += `  Opciones:\n${optionsText}\n`;
                 }
             }
+            if (item.customText) {
+                message += `  Detalles adicionales: ${item.customText}\n`;
+            }
             message += `  Precio: $${itemPrice.toFixed(2)}\n\n`;
         });
-
+    
         const total = cart.reduce((sum, item) => sum + ((typeof item.price === 'number' ? item.price : 0) * item.quantity), 0);
         message += `Total: $${total.toFixed(2)}`;
-
+    
         const encodedMessage = encodeURIComponent(message);
         window.open(`https://api.whatsapp.com/send?phone=+5215549683833&text=${encodedMessage}`, '_blank');
     }
