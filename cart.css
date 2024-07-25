@@ -3,6 +3,23 @@ body {
     margin: 20px;
 }
 
+.header {
+    display: flex;
+    align-items: center;
+}
+
+.header button {
+    margin-right: 20px;
+    padding: 5px 10px;
+    cursor: pointer;
+    background-color: red;
+}
+
+.header h1 {
+    margin: 0;
+}
+
+
 h1 {
     text-align: center;
 }
