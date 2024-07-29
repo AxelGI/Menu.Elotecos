@@ -360,14 +360,6 @@ export const products = {
                 { name: "Extras", options: extrasOptions},
             ]
         },
-        {
-            id: 24,
-            title: "Nachos con chilli",
-            description: "Charola de nachos acompañado de chiles jalapeño, queso líquido derretido calientito y una porción de chilli beans encima.",
-            price: 75.00,
-            image: "img/nachos-carne.PNG",
-            options: []
-        }
     ],
     "drinks": [
         {
