@@ -1,5 +1,6 @@
 :root {     
-       --color-primary: #fde428;
+       --color-primary: #fdbc00;
+       --color-box: #fde428;
        --color-primaryd: #fde428b2;
        --color-secundary: #e42000;
        --color-logo: #fdbc00;
@@ -102,7 +103,7 @@ main {
 }
 
 .product {
-    background-color: var(--color-primary);
+    background-color: var(--color-box);
     border-radius: 10px;
     box-shadow: 0 2px 5px --color-primaryd;
     padding: 10px;

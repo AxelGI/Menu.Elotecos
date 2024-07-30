@@ -138,7 +138,7 @@ export const products = {
             title: "Charola Eloteco Clásico",
             description: "Charola con un elote y esquite clásicos acompañados de papas Sabritas a elegir.",
             price: 75.00,
-            image: "img/charola-eloteco.PNG",
+            image: "img/charola-eloteco.png",
             options: [
                 { name: "Bolsa papitas", options: papitasOptions },
                 { name: "Extras", options: extrasOptions},
@@ -149,7 +149,7 @@ export const products = {
             title: "Charola Eloteco Loco",
             description: "Charola con un elote y esquite loco acompañados de papas Sabritas a elegir.",
             price: 80.00,
-            image: "img/charola-eloteco.PNG",
+            image: "img/charola-eloteco-loco.PNG",
             options: [
                 { name: "Cubierta fritura", options: frituraOptions },
                 { name: "Bolsa papitas", options: papitasOptions },
@@ -284,7 +284,7 @@ export const products = {
             title: "Maruchan Clásica",
             description: "Maruchan preparada con esquite, limón, sal, mayonesa y queso rallado.",
             price: 55.00,
-            image: "img/maruchan-clasica.PNG",
+            image: "img/maruchan-clasica.png",
             options: [
                 { name: "Sopa sabor", options: maruchanOptions },
                 { name: "Extras", options: extrasOptions},
@@ -295,7 +295,7 @@ export const products = {
             title: "Maruchan esquite y fritura",
             description: "Maruchan-esquite con cobertura de fritura a elegir: Cheeto Flamin, Doritos, Takis o Ruffles.",
             price: 60.00,
-            image: "img/maruchan-loca.PNG",
+            image: "img/maruchan-loca.png",
             options: [
                 { name: "Cubierta fritura", options: frituraOptions },
                 { name: "Sopa sabor", options: maruchanOptions },
@@ -307,7 +307,7 @@ export const products = {
             title: "Esquisopa loca",
             description: "Maruchan-esquite, fritura y una bolsa de papas Sabritas a elegir.",
             price: 75.00,
-            image: "img/esquisopa-loca.PNG",
+            image: "img/esquisopa-loca.png",
             options: [
                 { name: "Cubierta fritura", options: frituraOptions },
                 { name: "Bolsa papitas", options: papitasOptions },
@@ -320,7 +320,7 @@ export const products = {
             title: "Maruchan Suadero o Pastor",
             description: "Maruchan-esquite con una porción de suadero, pastor o mixto y verdura encima.",
             price: 80.00,
-            image: "img/maruchan-suadero-pastor.PNG",
+            image: "img/maruchan-suadero-pastor.png",
             options: [
                 { name: "Sopa sabor", options: maruchanOptions },
                 { name: "Carne", options: carneOptions},
@@ -439,14 +439,6 @@ export const products = {
                 { name: "Sabor", options: saborBoings},
             ]
         },
-        {
-            id: 34,
-            title: "Agua Natural",
-            description: "600ml.",
-            price: 15.00,
-            image: "img/agua.png",
-            options: []
-        }
     ]
 }
 };
