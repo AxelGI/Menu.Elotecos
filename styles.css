@@ -78,7 +78,7 @@ nav.horizontal-scroll {
 
 nav.horizontal-scroll button {
     flex: 1;
-    padding: 0.7rem 1rem;
+    padding: 0.5rem 1rem;
     background-color: black;
     color: white;
     border: none;
@@ -112,7 +112,7 @@ main {
 }
 
 .product img {
-    max-height: 315px;
+    max-height: 250px;
     width: 100%;
     border-radius: 10px;
 }
@@ -162,17 +162,35 @@ main {
 
 footer {
     text-align: center;
-    padding: 0px;
+    padding: 5px;
     background-color: var(--color-primary);
     color: black;
     position: fixed;
     width: 100%;
     bottom: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
+
+footer p {
+    margin: 0;
+    padding-right: 10px;
+}
+
+footer .social-icons {
+    display: flex;
+    gap: 10px;
+}
+
+footer .social-icons a img {
+    vertical-align: middle;
+}
+
 /* Estilo para el botón flotante del carrito */
 #cart-button {
     position: fixed;
-    bottom: 20px;
+    bottom: 40px;
     right: 20px;
     background-color: var(--color-secundary);
     color: black;
